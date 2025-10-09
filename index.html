@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scanner de codes-barres</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h2>Scanner de codes-barres</h2>
+    <h4>Version 2.38</h4>
+
+   
+
+    <!-- Vidéo -->
+    <video id="preview" playsinline muted autoplay ></video>
+
+    <!-- Statut et dernier code -->
+    <p id="status">⏳ Initialisation...</p>
+    <h7><p> Dernier code scanné : <span id="lastCode">---</span></p></h7>
+     <!-- Boutons de contrôle -->
+    <div id="controls">
+        <button id="Scan">📷🔎 SCAN</button>
+        <button id="downloadCsv">💾 Télécharger CSV</button>
+    </div>
+    <!-- Son bip -->
+    <audio id="beepSound" src="https://actions.google.com/sounds/v1/cartoon/wood_plank_flicks.ogg" preload="auto"></audio>
+
+    <!-- ZXing library -->
+    <script src="https://cdn.jsdelivr.net/npm/@zxing/library@0.19.1/umd/index.min.js"></script>
+    
+    <!-- Ton script JS -->
+    <script src="script.js"></script>
+</body>
+</html>
