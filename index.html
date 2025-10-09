@@ -1,35 +1,102 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Scanner de codes-barres</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Mon Portfolio — Galerie</title>
+
+  <!-- Lien vers la feuille de style -->
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h2>Scanner de codes-barres</h2>
-    <h4>Version 2.38</h4>
 
-   
-
-    <!-- Vidéo -->
-    <video id="preview" playsinline muted autoplay ></video>
-
-    <!-- Statut et dernier code -->
-    <p id="status">⏳ Initialisation...</p>
-    <h7><p> Dernier code scanné : <span id="lastCode">---</span></p></h7>
-     <!-- Boutons de contrôle -->
-    <div id="controls">
-        <button id="Scan">📷🔎 SCAN</button>
-        <button id="downloadCsv">💾 Télécharger CSV</button>
+  <!-- === En-tête === -->
+  <header>
+    <div class="wrap">
+      <h1>Mon Portfolio</h1>
+      <nav>
+        <ul>
+          <li><a href="#gallery">Projets</a></li>
+          <li><a href="#about">À propos</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
     </div>
-    <!-- Son bip -->
-    <audio id="beepSound" src="https://actions.google.com/sounds/v1/cartoon/wood_plank_flicks.ogg" preload="auto"></audio>
+  </header>
 
-    <!-- ZXing library -->
-    <script src="https://cdn.jsdelivr.net/npm/@zxing/library@0.19.1/umd/index.min.js"></script>
+  <main class="container">
+    <!-- === À propos === -->
+    <section id="about" class="card">
+      <h2>À propos de moi</h2>
+      <p>Étudiant en informatique (L3 MIAGE), passionné par le développement web et les projets Java. J’aime créer des interfaces intuitives et des applications performantes.</p>
+    </section>
+
+    <!-- === Galerie === -->
+    <section id="gallery" class="gallery-intro">
+      <h2>Galerie de projets</h2>
+
+      <div class="gallery-grid" id="galleryGrid">
+        <article class="gallery-item" tabindex="0"
+                 data-full="images/projet1-large.jpg"
+                 data-title="Projet 1 — Application Web"
+                 data-desc="Stack : HTML, CSS, JS / Application responsive">
+          <img class="gallery-thumb" src="images/projet1-thumb.jpg" alt="Aperçu Projet 1">
+          <div class="gallery-meta">
+            <div class="gallery-title">Projet 1 — Application Web</div>
+            <div class="gallery-desc">HTML • CSS • JavaScript</div>
+          </div>
+        </article>
+
+        <article class="gallery-item" tabindex="0"
+                 data-full="images/projet2-large.jpg"
+                 data-title="Projet 2 — Jeu Java"
+                 data-desc="Petit jeu Tower Defense développé avec Swing">
+          <img class="gallery-thumb" src=" https://github.com/brgd48/Portfolio/raw/main/images/projetBriac.png" alt="Aperçu Projet 2">
+          <div class="gallery-meta">
+            <div class="gallery-title">Projet 2 — Jeu Java</div>
+            <div class="gallery-desc">Java • Swing</div>
+          </div>
+        </article>
+
+        <article class="gallery-item" tabindex="0"
+                 data-full="images/projet3-large.jpg"
+                 data-title="Projet 3 — API & Base de données"
+                 data-desc="Backend en Flask avec PostgreSQL">
+          <img class="gallery-thumb" src="images/projet3-thumb.jpg" alt="Aperçu Projet 3">
+          <div class="gallery-meta">
+            <div class="gallery-title">Projet 3 — API & BD</div>
+            <div class="gallery-desc">Python • Flask • PostgreSQL</div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- === Lightbox === -->
+    <div id="lightbox" class="lightbox" aria-hidden="true" role="dialog" aria-label="Visionneuse d'image">
+      <div class="lightbox-card" role="document">
+        <button class="lb-close" id="lbClose" aria-label="Fermer (Échap)">✕</button>
+        <button class="lb-prev" id="lbPrev" aria-label="Image précédente">◀</button>
+        <img src="" alt="" class="lb-img" id="lbImg">
+        <button class="lb-next" id="lbNext" aria-label="Image suivante">▶</button>
+        <div class="lb-caption" id="lbCaption"></div>
+      </div>
+    </div>
+
     
-    <!-- Ton script JS -->
-    <script src="script.js"></script>
+    <!-- === Contact === -->
+    <section id="contact" class="card">
+      <h2>Contact</h2>
+      <p>📧 <a href="mailto:tonemail@example.com">tonemail@example.com</a></p>
+      <p>🔗 <a href="https://www.linkedin.com" target="_blank">LinkedIn</a> | <a href="https://github.com" target="_blank">GitHub</a></p>
+    </section>
+
+  </main>
+
+  <footer>
+    &copy; 2025 — Ton Nom
+  </footer>
+
+  <!-- Lien vers le script -->
+  <script src="script.js"></script>
 </body>
 </html>
