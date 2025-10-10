@@ -1,70 +1,40 @@
-// === Gestion de la galerie et du lightbox ===
-(function() {
-  const items = Array.from(document.querySelectorAll('.gallery-item'));
-  const lb = document.getElementById('lightbox');
-  const lbImg = document.getElementById('lbImg');
-  const lbCaption = document.getElementById('lbCaption');
-  const lbClose = document.getElementById('lbClose');
-  const lbPrev = document.getElementById('lbPrev');
-  const lbNext = document.getElementById('lbNext');
-  let currentIndex = -1;
+const slide = document.querySelector('.carousel-slide');
+const images = slide.querySelectorAll('img');
+const btnPrev = document.querySelector('.carousel-btn.prev');
+const btnNext = document.querySelector('.carousel-btn.next');
 
-  function openAt(index) {
-    const it = items[index];
-    if (!it) return;
-    const full = it.dataset.full || it.querySelector('.gallery-thumb').src;
-    const title = it.dataset.title || '';
-    const desc = it.dataset.desc || '';
-    lbImg.src = full;
-    lbImg.alt = title;
-    lbCaption.textContent = title + (desc ? ' — ' + desc : '');
-    lb.classList.add('open');
-    currentIndex = index;
-    document.body.style.overflow = 'hidden';
-  }
+let currIndex = 0;
+const total = images.length;
+const radius = 600; // distance depuis le centre, ajuste pour effet 3D
 
-  function closeLB() {
-    lb.classList.remove('open');
-    lbImg.src = '';
-    currentIndex = -1;
-    document.body.style.overflow = '';
-  }
-
-  function showNext(dir) {
-    if (currentIndex < 0) return;
-    let next = currentIndex + dir;
-    if (next < 0) next = items.length - 1;
-    if (next >= items.length) next = 0;
-    openAt(next);
-  }
-
-  // Ouvrir sur clic ou touche entrée/espace
-  items.forEach((el, idx) => {
-    el.addEventListener('click', () => openAt(idx));
-    el.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        openAt(idx);
-      }
-    });
+// Fonction pour positionner les images en cercle
+function rotateCarousel() {
+  const angle = 360 / total;
+  images.forEach((img, i) => {
+    // Calcul de l'angle pour chaque image
+    const currAngle = angle * ((i - currIndex + total) % total);
+    img.style.transform = `rotateY(${currAngle}deg) translateZ(${radius}px)`;
+    // L'image centrale est pleine opacité, les autres plus transparentes
+    img.style.opacity = i === currIndex ? 1 : 0.4;
   });
+}
 
-  // Boutons de navigation
-  lbClose.addEventListener('click', closeLB);
-  lbPrev.addEventListener('click', () => showNext(-1));
-  lbNext.addEventListener('click', () => showNext(1));
+// Navigation
+btnNext.addEventListener('click', () => {
+  currIndex = (currIndex + 1) % total;
+  rotateCarousel();
+});
 
-  // Fermer en cliquant à l’extérieur
-  lb.addEventListener('click', (e) => {
-    if (e.target === lb) closeLB();
-  });
+btnPrev.addEventListener('click', () => {
+  currIndex = (currIndex - 1 + total) % total;
+  rotateCarousel();
+});
 
-  // Contrôles clavier
-  document.addEventListener('keydown', (e) => {
-    if (lb.classList.contains('open')) {
-      if (e.key === 'Escape') closeLB();
-      if (e.key === 'ArrowLeft') showNext(-1);
-      if (e.key === 'ArrowRight') showNext(1);
-    }
-  });
-})();
+// Initialisation
+rotateCarousel();
+
+// Optionnel : rotation automatique toutes les 5 secondes
+setInterval(() => {
+  currIndex = (currIndex + 1) % total;
+  rotateCarousel();
+ }, 5000);

@@ -31,57 +31,52 @@
       <p>Étudiant en informatique (L3 MIAGE), passionné par le développement web et les projets Java. J’aime créer des interfaces intuitives et des applications performantes.</p>
     </section>
 
-    <!-- === Galerie === -->
-    <section id="gallery" class="gallery-intro">
-      <h2>Galerie de projets</h2>
-
-      <div class="gallery-grid" id="galleryGrid">
-        <article class="gallery-item" tabindex="0"
-                 data-full="images/projet1-large.jpg"
-                 data-title="Projet 1 — Application Web"
-                 data-desc="Stack : HTML, CSS, JS / Application responsive">
-          <img class="gallery-thumb" src="images/projet1-thumb.jpg" alt="Aperçu Projet 1">
-          <div class="gallery-meta">
-            <div class="gallery-title">Projet 1 — Application Web</div>
-            <div class="gallery-desc">HTML • CSS • JavaScript</div>
-          </div>
-        </article>
-
-        <article class="gallery-item" tabindex="0"
-                 data-full="images/projet2-large.jpg"
-                 data-title="Projet 2 — Jeu Java"
-                 data-desc="Petit jeu Tower Defense développé avec Swing">
-          <img class="gallery-thumb" src=" https://github.com/brgd48/Portfolio/raw/main/images/projetBriac.png" alt="Aperçu Projet 2">
-          <div class="gallery-meta">
-            <div class="gallery-title">Projet 2 — Jeu Java</div>
-            <div class="gallery-desc">Java • Swing</div>
-          </div>
-        </article>
-
-        <article class="gallery-item" tabindex="0"
-                 data-full="images/projet3-large.jpg"
-                 data-title="Projet 3 — API & Base de données"
-                 data-desc="Backend en Flask avec PostgreSQL">
-          <img class="gallery-thumb" src="images/projet3-thumb.jpg" alt="Aperçu Projet 3">
-          <div class="gallery-meta">
-            <div class="gallery-title">Projet 3 — API & BD</div>
-            <div class="gallery-desc">Python • Flask • PostgreSQL</div>
-          </div>
-        </article>
-      </div>
-    </section>
-
-    <!-- === Lightbox === -->
-    <div id="lightbox" class="lightbox" aria-hidden="true" role="dialog" aria-label="Visionneuse d'image">
-      <div class="lightbox-card" role="document">
-        <button class="lb-close" id="lbClose" aria-label="Fermer (Échap)">✕</button>
-        <button class="lb-prev" id="lbPrev" aria-label="Image précédente">◀</button>
-        <img src="" alt="" class="lb-img" id="lbImg">
-        <button class="lb-next" id="lbNext" aria-label="Image suivante">▶</button>
-        <div class="lb-caption" id="lbCaption"></div>
+<section id="projets">
+  <h2>Mes Projets</h2>
+  <div class="projet-container">
+    
+    <div class="projet-card">
+      <img src="ScannerCode_Barre.jpg" alt="Scanner Code-Barres">
+      <div class="projet-info">
+        <h3>Scanner Code-Barres</h3>
+        <p>Application mobile permettant de scanner et décoder des codes-barres pour obtenir des informations produits.</p>
+        <a href="#">Voir le projet</a>
       </div>
     </div>
 
+    <div class="projet-card">
+      <img src="projetBriac.png" alt="Site Portfolio">
+      <div class="projet-info">
+        <h3>Portfolio Briac</h3>
+        <p>Site web personnel moderne présentant mes projets, compétences et parcours.</p>
+        <a href="#">Voir le projet</a>
+      </div>
+    </div>
+
+    <div class="projet-card">
+      <img src="ScannerCode_Barre.jpg" alt="Application Inventaire">
+      <div class="projet-info">
+        <h3>Application Inventaire</h3>
+        <p>Gestion d’un stock à l’aide de codes QR et barres, avec interface web et base de données.</p>
+        <a href="#">Voir le projet</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+    <section id="skills" class="card">
+        <h2>Compétences</h2>
+         <ul>
+      <li>HTML / CSS / JavaScript</li>
+      <li>Java / Python</li>
+      <li>SQL / PostgreSQL</li>
+    </ul>
+     <ul>
+      <li>Git / GitHub</li>
+      <li>Maya / Unreal Ungine/ Substance 3D</li>
+    </ul>
+    </section>
     
     <!-- === Contact === -->
     <section id="contact" class="card">
