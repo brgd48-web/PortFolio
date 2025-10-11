@@ -20,14 +20,11 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
-  // === MODALE PROJET ===
+  // === MODALE PROJET (si utilisée) ===
   document.querySelectorAll('.voir-plus-btn').forEach(btn => {
     btn.addEventListener('click', function (e) {
       const href = btn.getAttribute('href');
-
-      if (href && href.startsWith("projet.html")) {
-        return; // Laisse le lien fonctionner normalement
-      }
+      if (href && href.startsWith("projet.html")) return;
 
       e.preventDefault();
       const card = btn.closest(".projet-card");
@@ -60,4 +57,49 @@ document.addEventListener("DOMContentLoaded", function () {
       };
     });
   });
+
+  // === SIDEBAR COMPÉTENCES ===
+  fetch('projects.json')
+    .then(response => {
+      if (!response.ok) {
+        throw new Error("Erreur de chargement du fichier JSON");
+      }
+      return response.json();
+    })
+    .then(projets => {
+      initialiserSidebar(projets);
+    })
+    .catch(error => {
+      console.error("Erreur lors du chargement des projets :", error);
+    });
+
+  function initialiserSidebar(projets) {
+    function ouvrirSidebar(skill) {
+      const sidebar = document.getElementById("sidebar");
+      const liste = document.getElementById("sidebar-projects");
+      liste.innerHTML = "";
+
+      const projetsFiltres = projets.filter(p => p.languages.includes(skill));
+
+      if (projetsFiltres.length > 0) {
+        projetsFiltres.forEach(p => {
+          const li = document.createElement("li");
+          li.innerHTML = `<a href="projet.html?id=${p.id}">${p.title}</a>`;
+          liste.appendChild(li);
+        });
+        sidebar.classList.add("open");
+      }
+    }
+
+    document.querySelectorAll("[data-skill]").forEach(el => {
+      el.addEventListener("click", () => {
+        const skill = el.getAttribute("data-skill");
+        ouvrirSidebar(skill);
+      });
+    });
+
+    document.querySelector(".close-sidebar").addEventListener("click", () => {
+      document.getElementById("sidebar").classList.remove("open");
+    });
+  }
 });

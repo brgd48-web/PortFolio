@@ -5,7 +5,7 @@
   --card: #ffffff;               /* Fond des cartes blanc pur */
   --hover-shadow: rgba(47, 96, 116, 0.2); /* Ombre bleutée */
   --radius: 12px;
-  --accent: #2f6074;             /* Bleu foncé pour titres et boutons */
+  --accent: #4a90a4;             /* Bleu foncé pour titres et boutons */
 }
 
 /* === Global === */
@@ -244,6 +244,25 @@ nav .nav-link:hover {
   background: var(--accent);
   margin: 8px auto 0;
   border-radius: 2px;
+}
+.sidebar {
+  position: fixed;
+  top: 0;
+  right: -400px;
+  width: 300px;
+  height: 100%;
+  background-color: var(--card);
+  box-shadow: -2px 0 10px var(--hover-shadow);
+  transition: right 0.3s ease;
+  padding: 1rem;
+  z-index: 1000;
+  overflow-y: auto;
+  border-top-left-radius: var(--radius);
+  border-bottom-left-radius: var(--radius);
+}
+
+.sidebar.open {
+  right: 0;
 }
 
 /* === Modale === */

@@ -57,7 +57,7 @@
         </article>
 
         <article class="projet-card card">
-          <img src="ScannerCode_Barre.jpg" alt="Modélisation 3D" />
+          <img src="Projet3D_VueFace.jpg" alt="Modélisation 3D" />
           <div class="projet-info">
             <h3>Modélisation 3D et animation d'un personnage</h3>
             <p>Création d’un personnage animé en 3D avec Maya et Unreal Engine.</p>
@@ -80,49 +80,61 @@
     </section>
 
     <!-- === Compétences === -->
-    <section id="skills" class="skills-section">
-      <h2>Mes Compétences</h2>
-      <div class="card-section">
+   <!-- === Compétences === -->
+  <section id="skills" class="skills-section">
+    <h2>Mes Compétences</h2>
+    <div class="card-section">
 
-        <div class="card">
-          <h3>Langages de programmation</h3>
-          <ul class="skills-grid">
-            <li><i class="fab fa-html5"></i> HTML</li>
-            <li><i class="fab fa-css3-alt"></i> CSS</li>
-            <li><i class="fab fa-js-square"></i> JavaScript</li>
-            <li><i class="fab fa-java"></i> Java</li>
-            <li><i class="fab fa-python"></i> Python</li>
-            <li><i class="fas fa-code"></i> Scala</li>
-            <li><i class="fas fa-database"></i> SQL</li>
-            <li><i class="fas fa-database"></i> PostgreSQL</li>
-            <li><i class="fas fa-cogs"></i> Blueprint</li>
-          </ul>
-        </div>
-
-        <div class="card">
-          <h3>Environnements</h3>
-          <ul class="skills-grid">
-            <li><i class="fas fa-code"></i> Eclipse</li>
-            <li><i class="fas fa-database"></i> PostgreSQL</li>
-            <li><i class="fas fa-laptop-code"></i> IntelliJ</li>
-            <li><i class="fas fa-terminal"></i> VS Code</li>
-            <li><i class="fas fa-cube"></i> Maya</li>
-            <li><i class="fas fa-gamepad"></i> Unreal Engine</li>
-            <li><i class="fas fa-paint-brush"></i> Substance 3D</li>
-          </ul>
-        </div>
-
-        <div class="card">
-          <h3>Outils</h3>
-          <ul class="skills-grid">
-            <li><i class="fab fa-git-alt"></i> Git</li>
-            <li><i class="fab fa-github"></i> GitHub</li>
-          </ul>
-        </div>
-
+      <div class="card">
+        <h3>Langages de programmation</h3>
+        <ul class="skills-grid">
+          <li data-skill="HTML"><i class="fab fa-html5"></i> HTML</li>
+          <li data-skill="CSS"><i class="fab fa-css3-alt"></i> CSS</li>
+          <li data-skill="JavaScript"><i class="fab fa-js-square"></i> JavaScript</li>
+          <li data-skill="Java"><i class="fab fa-java"></i> Java</li>
+          <li data-skill="Python"><i class="fab fa-python"></i> Python</li>
+          <li data-skill="Scala"><i class="fas fa-code"></i> Scala</li>
+          <li data-skill="SQL"><i class="fas fa-database"></i> SQL</li>
+          <li data-skill="PostgreSQL"><i class="fas fa-database"></i> PostgreSQL</li>
+          <li data-skill="Blueprint"><i class="fas fa-cogs"></i> Blueprint</li>
+        </ul>
       </div>
-    </section>
 
+      <div class="card">
+        <h3>Environnements</h3>
+        <ul class="skills-grid">
+          <li data-skill="Eclipse"><i class="fas fa-code"></i> Eclipse</li>
+          <li data-skill="PostgreSQL"><i class="fas fa-database"></i> PostgreSQL</li>
+          <li data-skill="IntelliJ"><i class="fas fa-laptop-code"></i> IntelliJ</li>
+          <li data-skill="VS Code"><i class="fas fa-terminal"></i> VS Code</li>
+          <li data-skill="Maya"><i class="fas fa-cube"></i> Maya</li>
+          <li data-skill="Unreal Engine"><i class="fas fa-gamepad"></i> Unreal Engine</li>
+          <li data-skill="Substance3D"><i class="fas fa-paint-brush"></i> Substance 3D</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3>Outils</h3>
+        <ul class="skills-grid">
+          <li data-skill="Git"><i class="fab fa-git-alt"></i> Git</li>
+          <li data-skill="GitHub"><i class="fab fa-github"></i> GitHub</li>
+        </ul>
+      </div>
+
+    </div>
+  </section>
+
+    <section id="related-projects" class="card" style="display:none;">
+      <h3>Projets liés à cette compétence</h3>
+      <ul id="project-links"></ul>
+    </section>
+    <div id="sidebar" class="sidebar">
+  <div class="sidebar-header">
+    <h3>Projets liés</h3>
+    <span class="close-sidebar"><i class="fas fa-times"></i></span>
+  </div>
+  <ul id="sidebar-projects"></ul>
+</div>
     <!-- === Contact === -->
     <section id="contact">
       <h2>Contact</h2>
