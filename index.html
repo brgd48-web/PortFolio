@@ -2,11 +2,10 @@
 <html lang="fr">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Mon Portfolio — Galerie</title>
-  <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 </head>
 <body>
 
@@ -28,139 +27,125 @@
   <main class="container">
 
     <!-- === À propos === -->
-    <section id="about" class="card">
+    <section id="about">
       <h2>À propos de moi</h2>
-      <p>Étudiant en informatique (L3 MIAGE), passionné par le développement web et les projets Java. J’aime créer des interfaces intuitives et des applications performantes.</p>
+      <div class="card about-trigger" style="cursor: pointer;">
+      <p>Cliquez pour en savoir plus sur mon parcours.</p>
     </section>
 
     <!-- === Projets === -->
     <section id="projets">
       <h2>Mes Projets</h2>
       <div class="projet-container">
-        
+
         <article class="projet-card card">
-          <img src="ScannerCode_Barre.jpg" alt="Scanner Code-Barres">
+          <img src="ScannerCode_Barre.jpg" alt="Scanner Code-Barres" />
           <div class="projet-info">
             <h3>Scanner Code-Barres</h3>
             <p>Application mobile permettant de scanner et décoder des codes-barres pour obtenir des informations produits.</p>
-            <a href="#">Voir le projet</a>
+            <a href="projet.html?id=scanner-code-barres" class="voir-plus-btn">Voir plus</a>
           </div>
         </article>
 
         <article class="projet-card card">
-          <img src="projetBriac.png" alt="Site Portfolio">
+          <img src="projetBriac.png" alt="Tower Defense" />
           <div class="projet-info">
-            <h3>Portfolio Briac</h3>
+            <h3>Tower Defense</h3>
             <p>Site web personnel moderne présentant mes projets, compétences et parcours.</p>
-            <a href="#">Voir le projet</a>
+            <a href="projet.html?id=tower-defense" class="voir-plus-btn">Voir plus</a>
           </div>
         </article>
 
         <article class="projet-card card">
-          <img src="ScannerCode_Barre.jpg" alt="Application Inventaire">
+          <img src="ScannerCode_Barre.jpg" alt="Modélisation 3D" />
           <div class="projet-info">
             <h3>Modélisation 3D et animation d'un personnage</h3>
-            <p>Gestion d’un stock à l’aide de codes QR et barres, avec interface web et base de données.</p>
-            <a href="#">Voir le projet</a>
-          </div>
-        </article>
-        <article class="projet-card card">
-          <img src="ScannerCode_Barre.jpg" alt="Application Inventaire">
-          <div class="projet-info">
-            <h3>Application Inventaire</h3>
-            <p>Gestion d’un stock à l’aide de codes QR et barres, avec interface web et base de données.</p>
-            <a href="#">Voir le projet</a>
-          </div>
-        </article>
-        <article class="projet-card card">
-          <img src="ScannerCode_Barre.jpg" alt="Application Inventaire">
-          <div class="projet-info">
-            <h3>Application Inventaire</h3>
-            <p>Gestion d’un stock à l’aide de codes QR et barres, avec interface web et base de données.</p>
-            <a href="#">Voir le projet</a>
-          </div>
-        </article>
-        <article class="projet-card card">
-          <img src="ScannerCode_Barre.jpg" alt="Application Inventaire">
-          <div class="projet-info">
-            <h3>Application Inventaire</h3>
-            <p>Gestion d’un stock à l’aide de codes QR et barres, avec interface web et base de données.</p>
-            <a href="#">Voir le projet</a>
-          </div>
-        </article>
-        <article class="projet-card card">
-          <img src="ScannerCode_Barre.jpg" alt="Application Inventaire">
-          <div class="projet-info">
-            <h3>Application Inventaire</h3>
-            <p>Gestion d’un stock à l’aide de codes QR et barres, avec interface web et base de données.</p>
-            <a href="#">Voir le projet</a>
+            <p>Création d’un personnage animé en 3D avec Maya et Unreal Engine.</p>
+            <a href="projet.html?id=personnage-3d" class="voir-plus-btn">Voir plus</a>
           </div>
         </article>
 
+        <!-- Répétition des projets Inventaire -->
+        <article class="projet-card card">
+          <img src="ScannerCode_Barre.jpg" alt="Application Inventaire" />
+          <div class="projet-info">
+            <h3>Application Inventaire</h3>
+            <p>Gestion d’un stock à l’aide de codes QR et barres, avec interface web et base de données.</p>
+            <a href="projet.html?id=inventaire" class="voir-plus-btn">Voir plus</a>
+          </div>
+        </article>
+
+        <!-- Tu peux dupliquer ce bloc pour d'autres variantes -->
       </div>
     </section>
 
     <!-- === Compétences === -->
-  <section id="skills" class="skills-section">
-  <h2>Mes Compétences</h2>
-  <div class="card-section">
-  <div class="card">
-    <h3>Langages de programmation</h3>
-      <ul class="skills-grid">
-    <li><i class="fab fa-html5"></i> HTML</li>
-    <li><i class="fab fa-css3-alt"></i> CSS</li>
-    <li><i class="fab fa-js-square"></i> JavaScript</li>
-    <li><i class="fab fa-java"></i> Java</li>
-    <li><i class="fab fa-python"></i> Python</li>
-    <li><i class="fas fa-code"></i> Scala</li>
-    <li><i class="fas fa-database"></i> SQL</li>
-    <li><i class="fas fa-database"></i> PostgreSQL</li>
-    <li><i class="fas fa-cogs"></i> Blueprint</li>
-  </ul>
-  </div>
+    <section id="skills" class="skills-section">
+      <h2>Mes Compétences</h2>
+      <div class="card-section">
 
-  <div class="card">
-     <h3>Environnements</h3>
-   <ul class="skills-grid">
-    <li><i class="fas fa-cube"></i> Maya</li>
-    <li><i class="fas fa-gamepad"></i> Unreal Engine</li>
-    <li><i class="fas fa-palette"></i> Substance 3D</li>
-  </ul>
-  </div>
+        <div class="card">
+          <h3>Langages de programmation</h3>
+          <ul class="skills-grid">
+            <li><i class="fab fa-html5"></i> HTML</li>
+            <li><i class="fab fa-css3-alt"></i> CSS</li>
+            <li><i class="fab fa-js-square"></i> JavaScript</li>
+            <li><i class="fab fa-java"></i> Java</li>
+            <li><i class="fab fa-python"></i> Python</li>
+            <li><i class="fas fa-code"></i> Scala</li>
+            <li><i class="fas fa-database"></i> SQL</li>
+            <li><i class="fas fa-database"></i> PostgreSQL</li>
+            <li><i class="fas fa-cogs"></i> Blueprint</li>
+          </ul>
+        </div>
 
-  <div class="card">
-    <h3>Outils</h3>
-   <ul class="skills-grid">
-    <li><i class="fab fa-git-alt"></i> Git</li>
-    <li><i class="fab fa-github"></i> GitHub</li>
-  </ul>
-    </div>
-</section>
+        <div class="card">
+          <h3>Environnements</h3>
+          <ul class="skills-grid">
+            <li><i class="fas fa-code"></i> Eclipse</li>
+            <li><i class="fas fa-database"></i> PostgreSQL</li>
+            <li><i class="fas fa-laptop-code"></i> IntelliJ</li>
+            <li><i class="fas fa-terminal"></i> VS Code</li>
+            <li><i class="fas fa-cube"></i> Maya</li>
+            <li><i class="fas fa-gamepad"></i> Unreal Engine</li>
+            <li><i class="fas fa-paint-brush"></i> Substance 3D</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <h3>Outils</h3>
+          <ul class="skills-grid">
+            <li><i class="fab fa-git-alt"></i> Git</li>
+            <li><i class="fab fa-github"></i> GitHub</li>
+          </ul>
+        </div>
+
+      </div>
+    </section>
 
     <!-- === Contact === -->
-    <section id="contact" class="card">
+    <section id="contact">
       <h2>Contact</h2>
+       <div class="card">
       <p>📧 <a href="mailto:tonemail@example.com">tonemail@example.com</a></p>
       <p>🔗 <a href="https://www.linkedin.com" target="_blank">LinkedIn</a> | <a href="https://github.com" target="_blank">GitHub</a></p>
     </section>
 
   </main>
 
+  <!-- === Pied de page === -->
   <footer>
-    &copy; 2025 — Ton Nom
+    &copy; 2025 — Briac Régeard
   </footer>
 
+  <!-- === Script principal === -->
   <script src="script.js"></script>
-  <!-- Modale pour les détails du projet -->
-<div id="projectModal" class="modal">
-  <div class="modal-content">
-    <span class="close">&times;</span>
-    <h3 id="modalTitle">Titre du projet</h3>
-    <p id="modalDescription">Description détaillée du projet...</p>
-    <img id="modalImage" src="" alt="Image projet" style="width:100%; max-height:300px; object-fit:cover;">
-    <a id="modalLink" href="#" target="_blank" style="display:inline-block; margin-top:10px;">Lien vers le projet</a>
+  <div id="aboutModal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h3>À propos de moi</h3>
+      <p>Étudiant en informatique (L3 MIAGE), passionné par le développement web et les projets Java. J’aime créer des interfaces intuitives et des applications performantes.</p>
+    </div>
   </div>
-</div>
-
 </body>
 </html>

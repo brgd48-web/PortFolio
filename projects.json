@@ -1,0 +1,27 @@
+[
+  {
+    "id": "scanner-code-barres",
+    "title": "Scanner Code-Barres",
+    "description": "Application mobile permettant de scanner et décoder des codes-barres pour obtenir des informations produits.",
+    "languages": ["HTML", "CSS", "JavaScript"],
+    "image": "../images/ScannerCode_Barre.jpg",
+    "video": "../videos/scanner-demo.mp4"
+  },
+  {
+    "id": "tower-defense",
+    "title": "Tower Defense",
+    "description": "Projet réalisé en L2, petit jeux vidéos initiant à l'héritage, au dépendance",
+    "languages": ["Java"],
+    "image": "projetBriac.png",
+    "video": "Test_Video_TowerDef.mp4"
+  },
+   {
+    "id": "portfolio-briac",
+    "title": "Portfolio Briac",
+    "description": "Site web personnel moderne présentant mes projets, compétences et parcours.",
+    "languages": ["HTML", "CSS", "JavaScript"],
+    "image": "../images/projetBriac.png",
+    "video": ""
+  }
+
+]

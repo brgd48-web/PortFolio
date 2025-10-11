@@ -1,0 +1,68 @@
+<!-- projet.html -->
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Projet</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <h1 id="project-title">Chargement...</h1>
+      <nav><a href="index.html" class="btn-retour">← Retour</a></nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="card">
+      <h2>Description</h2>
+      <p id="project-description"></p>
+    </section>
+
+    <section class="card">
+      <h2>Langages utilisés</h2>
+      <ul id="project-languages" class="skills-grid"></ul>
+    </section>
+
+    <section class="card">
+      <h2>Galerie</h2>
+      <img id="project-image" src="" alt="" style="width:100%; border-radius:8px;">
+      <video id="project-video" controls width="100%" style="margin-top:15px; display:none;">
+        <source id="video-source" src="" type="video/mp4">
+      </video>
+    </section>
+  </main>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const projectId = params.get("id");
+
+    fetch("projects.json")
+      .then(res => res.json())
+      .then(data => {
+        const project = data.find(p => p.id === projectId);
+        if (!project) return document.body.innerHTML = "<h2>Projet introuvable</h2>";
+
+        document.title = project.title;
+        document.getElementById("project-title").textContent = project.title;
+        document.getElementById("project-description").textContent = project.description;
+
+        const langList = document.getElementById("project-languages");
+        project.languages.forEach(lang => {
+          const li = document.createElement("li");
+          li.textContent = lang;
+          langList.appendChild(li);
+        });
+
+        document.getElementById("project-image").src = project.image;
+        document.getElementById("project-image").alt = project.title;
+
+        if (project.video) {
+          document.getElementById("video").src = project.video;
+          document.getElementById("project-video").style.display = "block";
+        }
+      });
+  </script>
+</body>
+</html>
