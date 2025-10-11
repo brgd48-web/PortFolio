@@ -1,152 +1,77 @@
+/* === Variables de couleurs === */
 :root {
-  --bg: #ffffff;        /* Fond clair */
-  --primary: #000000;   /* Titres et textes importants */
-  --accent: #000000;    /* Boutons / accents */
-  --card: #f4f4f4;      /* Fond cartes / sections */
-  --muted: #555555;     /* Texte secondaire */
+  --primary: #1c1c1c;             /* Texte principal gris foncé */
+  --bg: #e6f4f9;                  /* Fond général bleu pastel */
+  --card: #ffffff;               /* Fond des cartes blanc pur */
+  --hover-shadow: rgba(47, 96, 116, 0.2); /* Ombre bleutée */
   --radius: 12px;
-  --maxw: 1100px;
+  --accent: #2f6074;             /* Bleu foncé pour titres et boutons */
 }
 
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
+/* === Global === */
 body {
-  font-family: 'Poppins', sans-serif;
+  margin: 0;
+  font-family: "Poppins", sans-serif;
   background: var(--bg);
   color: var(--primary);
   line-height: 1.6;
 }
 
+a {
+  color: var(--primary);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
 /* === Header === */
 header {
-  background: #000;
-  color: #fff;
-  padding: 1rem 2rem;
-  position: sticky;
-  top: 0;
-  z-index: 30;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  background: var(--accent);
+  padding: 20px 0;
+  border-bottom: 1px solid var(--accent);
 }
+
 header .wrap {
-  max-width: var(--maxw);
+  max-width: 1100px;
   margin: 0 auto;
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
 }
+
+header h1 {
+  margin: 0;
+  font-size: 1.8em;
+  color: var(--bg);
+}
+
 nav ul {
-  display: flex;
-  gap: 1.5rem;
   list-style: none;
+  display: flex;
+  gap: 25px;
+  margin: 0;
+  padding: 0;
 }
-nav a {
-  color: #fff;
-  text-decoration: none;
+
+nav .nav-link {
+  color: var(--bg);
   font-weight: 500;
   transition: color 0.3s;
 }
-nav a:hover {
-  color: #ccc; /* texte clair sur fond noir */
-}
-/* --- Section principale --- */
-#projets {
-  background: white;
-  color: white;
-  padding: 60px 20px;
-  font-family: "Poppins", sans-serif;
-  text-align: center;
+
+nav .nav-link:hover {
+  color: #d0e6f0;
 }
 
-#projets h2 {
-  font-size: 2.5em;
-  margin-bottom: 40px;
-  letter-spacing: 1px;
-}
-
-/* --- Grille des projets --- */
-.projet-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 25px;
+/* === Main Container === */
+.container {
   max-width: 1100px;
-  margin: 0 auto;
-}
-
-/* --- Carte de projet --- */
-.projet-card {
-  position: relative;
-  overflow: hidden;
-  border-radius: 20px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
-  transition: transform 0.4s ease, box-shadow 0.4s ease;
-  background-color: #f4f4f4f4;
-}
-
-.projet-card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
-}
-
-/* --- Image du projet --- */
-.projet-card img {
-  width: 100%;
-  height: 200px;
-  object-fit: cover;
-  border-top-left-radius: 20px;
-  border-top-right-radius: 20px;
-}
-
-/* --- Texte du projet --- */
-.projet-info {
-  padding: 20px;
-  color: black;
-}
-
-.projet-info h3 {
-  font-size: 1.3em;
-  margin-bottom: 10px;
-  color: primary;
-}
-
-.projet-info p {
-  font-size: 0.95em;
-  color: #ddd;
-  line-height: 1.5;
-}
-
-/* --- Bouton --- */
-.projet-info a {
-  display: inline-block;
-  margin-top: 10px;
-  padding: 8px 15px;
-  background: #ffffff;
-  color: #0a0f1f;
-  font-weight: 600;
-  text-decoration: none;
-  border-radius: 8px;
-  transition: background 0.3s;
-}
-
-.projet-info a:hover {
-  background: white;
-}
-
-
-/* === Sections === */
-section {
-  max-width: var(--maxw);
-  margin: 3rem auto;
-  padding: 0 2rem;
-}
-h2 {
-  color: var(--primary);
-  font-size: 2rem;
-  margin-bottom: 1rem;
-  transition: color 0.3s;
+  margin: 40px auto;
+  padding: 0 20px;
 }
 
 /* === Cards === */
@@ -154,60 +79,195 @@ h2 {
   background: var(--card);
   padding: 1.5rem;
   border-radius: var(--radius);
-  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.05);
   margin-bottom: 1.5rem;
   color: var(--primary);
-  transition: all 0.3s;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* Hover sur la card : change fond et texte */
 .card:hover {
-  background: #000;
-  color: #fff;
-  cursor: pointer;
+  transform: translateY(-5px) scale(1.03);
+  box-shadow: 0 15px 35px var(--hover-shadow);
 }
 
-/* Titres h2 à l’intérieur de la card suivent le hover */
-.card:hover h2 {
-  color: #fff;
+/* === Projets === */
+#projets h2 {
+  text-align: center;
+  font-size: 2em;
+  margin-bottom: 30px;
 }
 
-/* Optionnel : tout le texte de la card devient blanc */
-.card:hover * {
-  color: #fff;
+.projet-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 25px;
 }
 
-/* === Buttons === */
-button {
-  background: #000;
-  color: #fff;
-  border: none;
-  padding: 0.6rem 1.2rem;
-  font-weight: 500;
+.projet-card {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
   border-radius: var(--radius);
-  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  background: var(--card);
+}
+
+.projet-card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-bottom: 1px solid #ddd;
+}
+
+.projet-card .projet-info {
+  padding: 15px;
+}
+
+.projet-card h3 {
+  margin-top: 0;
+  color: var(--primary);
+}
+
+.projet-card p {
+  font-size: 0.95em;
+  color: #333;
+  line-height: 1.4;
+}
+
+.projet-card a {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 8px 12px;
+  background: var(--accent);
+  color: var(--bg);
+  border-radius: 8px;
+  font-weight: 600;
   transition: background 0.3s, color 0.3s;
 }
-button:hover {
-  background: #555;
+
+.projet-card a:hover {
+  background: #1e4a5b;
   color: #fff;
+}
+
+/* === Compétences === */
+#skills h2 {
+  text-align: center;
+  font-size: 2em;
+  margin-bottom: 30px;
+}
+
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 15px;
+  list-style: none;
+  padding: 0;
+  margin: 0 auto;
+}
+
+.skills-grid li {
+  background: var(--card);
+  padding: 12px;
+  border-radius: var(--radius);
+  text-align: center;
+  font-weight: 500;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.skills-grid li:hover {
+  transform: translateY(-5px) scale(1.03);
+  box-shadow: 0 15px 35px var(--hover-shadow);
+}
+
+.card-section h3 {
+  text-align: center;
+  margin: 40px 0 20px;
+  font-size: 1.5em;
+  color: var(--accent);
+  position: relative;
+}
+
+.card-section h3::after {
+  content: "";
+  display: block;
+  width: 40px;
+  height: 3px;
+  background: var(--accent);
+  margin: 8px auto 0;
+  border-radius: 2px;
+}
+
+/* === Modale === */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 999;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.6);
+  overflow: auto;
+}
+
+.modal-content {
+  background-color: var(--card);
+  margin: 10% auto;
+  padding: 20px;
+  border-radius: var(--radius);
+  max-width: 600px;
+  color: var(--primary);
+  box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+  position: relative;
+  animation: fadeIn 0.3s;
+}
+
+.modal-content img {
+  border-radius: 8px;
+  margin-top: 10px;
+}
+
+.close {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 28px;
+  font-weight: bold;
+  color: #333;
+  cursor: pointer;
+}
+
+.close:hover {
+  color: #000;
+}
+
+@keyframes fadeIn {
+  from {opacity: 0; transform: translateY(-20px);}
+  to {opacity: 1; transform: translateY(0);}
 }
 
 /* === Footer === */
 footer {
   text-align: center;
-  padding: 2rem;
-  color: var(--muted);
-  background: #111;
+  padding: 20px;
+  background: var(--accent);
+  color: var(--bg);
+  border-top: 1px solid var(--accent);
+  margin-top: 40px;
 }
 
 /* === Responsive === */
-@media (max-width: 700px) {
-  nav ul {
-    flex-direction: column;
-    align-items: center;
+@media (max-width: 768px) {
+  .projet-card img {
+    height: 180px;
   }
-  .carousel-slide {
-    width: 90%;
+
+  .skills-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .card-section h3 {
+    font-size: 1.3em;
   }
 }

@@ -1,40 +1,42 @@
-const slide = document.querySelector('.carousel-slide');
-const images = slide.querySelectorAll('img');
-const btnPrev = document.querySelector('.carousel-btn.prev');
-const btnNext = document.querySelector('.carousel-btn.next');
+console.log("JS chargé")
+document.addEventListener("DOMContentLoaded", function() {
+// Récupérer la modale et le bouton fermer
+const modal = document.getElementById("projectModal");
+const modalTitle = document.getElementById("modalTitle");
+const modalDescription = document.getElementById("modalDescription");
+const modalImage = document.getElementById("modalImage");
+const modalLink = document.getElementById("modalLink");
+const closeBtn = document.querySelector(".close");
 
-let currIndex = 0;
-const total = images.length;
-const radius = 600; // distance depuis le centre, ajuste pour effet 3D
-
-// Fonction pour positionner les images en cercle
-function rotateCarousel() {
-  const angle = 360 / total;
-  images.forEach((img, i) => {
-    // Calcul de l'angle pour chaque image
-    const currAngle = angle * ((i - currIndex + total) % total);
-    img.style.transform = `rotateY(${currAngle}deg) translateZ(${radius}px)`;
-    // L'image centrale est pleine opacité, les autres plus transparentes
-    img.style.opacity = i === currIndex ? 1 : 0.4;
-  });
+// Fonction pour ouvrir la modale avec contenu dynamique
+function openModal(title, description, imageSrc, link) {
+  modalTitle.textContent = title;
+  modalDescription.textContent = description;
+  modalImage.src = imageSrc;
+  modalLink.href = link;
+  modal.style.display = "block";
 }
 
-// Navigation
-btnNext.addEventListener('click', () => {
-  currIndex = (currIndex + 1) % total;
-  rotateCarousel();
+// Fermer la modale en cliquant sur la croix ou en dehors
+closeBtn.onclick = function() {
+  modal.style.display = "none";
+}
+window.onclick = function(event) {
+  if(event.target == modal) {
+    modal.style.display = "none";
+  }
+}
+
+// Ajouter un écouteur sur chaque bouton "Voir le projet"
+document.querySelectorAll(".projet-card a").forEach((btn, index) => {
+  btn.addEventListener("click", function(e) {
+    e.preventDefault();
+    const card = btn.closest(".projet-card");
+    const title = card.querySelector("h3").textContent;
+    const description = card.querySelector("p").textContent;
+    const imageSrc = card.querySelector("img").src;
+    const link = btn.href; // ou "#" si pas de lien externe
+    openModal(title, description, imageSrc, link);
+  });
 });
-
-btnPrev.addEventListener('click', () => {
-  currIndex = (currIndex - 1 + total) % total;
-  rotateCarousel();
 });
-
-// Initialisation
-rotateCarousel();
-
-// Optionnel : rotation automatique toutes les 5 secondes
-setInterval(() => {
-  currIndex = (currIndex + 1) % total;
-  rotateCarousel();
- }, 5000);
