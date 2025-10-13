@@ -102,10 +102,7 @@ nav .nav-link:hover {
   margin-bottom: 30px;
 }
 
-#about .card {
-  margin-left: auto;
-  max-width: 500px;
-}
+
 
 /* === Cards === */
 .card {
@@ -318,6 +315,39 @@ nav .nav-link:hover {
   font-size: 2em;
   margin-bottom: 30px;
 }
+#project-image {
+  max-width: 50%;
+  max-height: 50%;
+  height: auto;
+  display: block;
+  margin: 1rem auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+#project-languages {
+  display: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  list-style: none;
+  padding: 0;
+  margin-bottom: 20px;
+}
+
+#project-languages li {
+  color: #ffffff;
+  opacity:0.3;
+  background:#445980;
+  border-radius: 6px;
+  padding: 4px 8px;
+  font-size: 0.9em;
+}
+#gallery {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center; /* centre horizontalement */
+  gap: 10px; /* espace entre les images */
+}
+
 /* === Footer === */
 footer {
   text-align: center;
@@ -329,7 +359,7 @@ footer {
 }
 
 /* === Responsive === */
-@media (max-width: 768px) {
+@media (max-width: 400px) {
   .projet-card img {
     height: 180px;
   }

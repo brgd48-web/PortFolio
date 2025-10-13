@@ -4,24 +4,23 @@
     "title": "Scanner Code-Barres",
     "description": "Application mobile permettant de scanner et décoder des codes-barres pour obtenir des informations produits.",
     "languages": ["HTML", "CSS", "JavaScript"],
-    "image": "../images/ScannerCode_Barre.jpg",
-    "video": "../videos/scanner-demo.mp4"
+    "images": ["ScannerCode_Barre.jpg", "ScannerCode_Barre_2.jpg"],
+    "video": ""
   },
   {
     "id": "tower-defense",
     "title": "Tower Defense",
-    "description": "Projet réalisé en L2, petit jeux vidéos initiant à l'héritage, au dépendance",
+    "description": "Projet réalisé en L2, petit jeu vidéo initiant à l'héritage et aux dépendances.",
     "languages": ["Java"],
-    "image": "projetBriac.png",
+    "images": ["projetBriac.png"],
     "video": "Test_Video_TowerDef.mp4"
   },
-   {
+  {
     "id": "personnage-3d",
     "title": "Création et animation d'un personnage 3D",
-    "description": "Projet de plusieurs semaine sur la conception 3D, la texture, l'animation d'unn personnage et d'un decor.\n Le projet s'est déroulé dans l'école 'Creative Seed' ",
-    "languages": ["Maya", "BluePrint", "Substance3D"],
-    "image": "Projet3D_Terrain.png",
+    "description": "Projet de plusieurs semaines sur la conception 3D, la texture et l'animation d'un personnage et d'un décor.\nLe projet s'est déroulé dans l'école 'Creative Seed'.",
+    "languages": ["Maya", "BluePrint", "Substance3D", "Unreal Engine"],
+    "images": ["Projet3D_Terrain.png", "Projet3D_VueFace.jpg", "Projet3D_Vue3_4.jpg"],
     "video": ""
   }
-
 ]
