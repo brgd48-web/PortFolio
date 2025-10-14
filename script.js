@@ -1,6 +1,17 @@
 document.addEventListener("DOMContentLoaded", function () {
   console.log("JS chargé");
+  const aboutText = `Étudiant en informatique (L3 MIAGE), passionné par le développement web et les projets Java. J’aime créer des interfaces intuitives et des applications performantes...`; // ton texte complet ici
+  const target = document.getElementById("about-text");
+  let i = 0;
 
+  function typeWriter() {
+    if (i < aboutText.length) {
+      target.textContent += aboutText.charAt(i);
+      i++;
+      setTimeout(typeWriter, 25); // vitesse en ms
+    }
+  }
+  typeWriter();
   // === MODALE À PROPOS ===
   const aboutTrigger = document.querySelector('.about-trigger');
   const aboutModal = document.getElementById('aboutModal');
@@ -102,4 +113,14 @@ document.addEventListener("DOMContentLoaded", function () {
       document.getElementById("sidebar").classList.remove("open");
     });
   }
+  project.images.forEach(imgSrc => {
+  const img = document.createElement("img");
+  img.src = imgSrc;
+  img.alt = project.title;
+  img.classList.add("gallery-item");
+  gallery.appendChild(img);
+});
+
+
+
 });

@@ -15,8 +15,8 @@
       <h1>Mon Portfolio</h1>
       <nav aria-label="Menu principal">
         <ul>
-          <li><a class="nav-link" href="#projets">Projets</a></li>
           <li><a class="nav-link" href="#about">À propos</a></li>
+          <li><a class="nav-link" href="#projets">Projets</a></li>
           <li><a class="nav-link" href="#skills">Compétences</a></li>
           <li><a class="nav-link" href="#contact">Contact</a></li>
         </ul>
@@ -27,10 +27,11 @@
   <main class="container">
 
     <!-- === À propos === -->
-    <section id="about">
+    <section id="about" class="full-height">
       <h2>À propos de moi</h2>
       <div class="card about-trigger" style="cursor: pointer;">
-      <p>Étudiant en informatique (L3 MIAGE), passionné par le développement web et les projets Java. J’aime créer des interfaces intuitives et des applications performantes - Voir plus ...</p>
+      <p id="about-text"></p>
+      </div>
     </section>
 
     <!-- === Projets === -->
@@ -64,14 +65,21 @@
             <a href="projet.html?id=personnage-3d" class="voir-plus-btn">Voir plus</a>
           </div>
         </article>
-
-        <!-- Répétition des projets Inventaire -->
         <article class="projet-card card">
-          <img src="ScannerCode_Barre.jpg" alt="Application Inventaire" />
+          <img src="MORVAN-REGEARD-Rapport-BDD-FOOT-G2.pdf" alt="Base de données" />
           <div class="projet-info">
-            <h3>Application Inventaire</h3>
+            <h3>Base de données</h3>
             <p>Gestion d’un stock à l’aide de codes QR et barres, avec interface web et base de données.</p>
-            <a href="projet.html?id=inventaire" class="voir-plus-btn">Voir plus</a>
+            <a href="projet.html?id=bdd_sql" class="voir-plus-btn">Voir plus</a>
+          </div>
+        </article>
+        </article>
+        <article class="projet-card card">
+          <img src="" alt="Génération de graphique" />
+          <div class="projet-info">
+            <h3>Génération de graphique</h3>
+            <p>Gestion d’un stock à l’aide de codes QR et barres, avec interface web et base de données.</p>
+            <a href="projet.html?id=generateur_diagramme" class="voir-plus-btn">Voir plus</a>
           </div>
         </article>
 
@@ -81,7 +89,7 @@
 
     <!-- === Compétences === -->
    <!-- === Compétences === -->
-  <section id="skills" class="skills-section">
+  <section id="skills" class="full-height">
     <h2>Mes Compétences</h2>
     <div class="card-section">
 
@@ -106,7 +114,7 @@
           <li data-skill="Eclipse"><i class="fas fa-code"></i> Eclipse</li>
           <li data-skill="PostgreSQL"><i class="fas fa-database"></i> PostgreSQL</li>
           <li data-skill="IntelliJ"><i class="fas fa-laptop-code"></i> IntelliJ</li>
-          <li data-skill="VS Code"><i class="fas fa-terminal"></i> VS Code</li>
+          <li data-skill="VSCode"><i class="fas fa-terminal"></i> VS Code</li>
           <li data-skill="Maya"><i class="fas fa-cube"></i> Maya</li>
           <li data-skill="Unreal Engine"><i class="fas fa-gamepad"></i> Unreal Engine</li>
           <li data-skill="Substance3D"><i class="fas fa-paint-brush"></i> Substance 3D</li>
@@ -136,7 +144,7 @@
   <ul id="sidebar-projects"></ul>
 </div>
     <!-- === Contact === -->
-    <section id="contact">
+    <section id="contact" class="full-height">
       <h2>Contact</h2>
        <div class="card">
       <p>📧 <a href="mailto:tonemail@example.com">tonemail@example.com</a></p>

@@ -2,87 +2,152 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <title>Projet</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Détails du projet</title>
   <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body class="project-page">
   <header>
     <div class="wrap">
       <h1 id="project-title">Chargement...</h1>
-      <nav><a href="index.html" class="btn-retour">← Retour</a></nav>
+      <nav><a href="index.html" class="btn btn-retour">← Retour</a></nav>
     </div>
   </header>
 
-  <main class="container">
-    <section class="card">
-      <h2>Description</h2>
-      <p id="project-description"></p>
-    </section>
+  <main class="project-hero">
+    <div class="project-wrap">
+      <div class="project-card-hero">
+        <h2>Description</h2>
+        <p id="project-description" class="project-description"></p>
 
-    <ul id="project-languages" class="skills-grid"></ul>
+        <div class="actions-row">
+          <a href="#" class="btn primary" id="open-gallery">Ouvrir la galerie</a>
+          <a href="#" class="btn" id="copy-link">Copier le lien</a>
+        </div>
 
-    <section class="card">
-      <h2>Galerie</h2>
-      <div id="gallery" class="gallery"></div>
-    </section>
+        <h3>Langages et Outils</h3>
+        <div id="project-languages" class="chips"></div>
+
+        <section class="gallery-grid" id="gallery"></section>
+      </div>
+
+      <aside class="meta-card">
+        <h3>Infos rapides</h3>
+        <ul class="meta-list" id="meta-list"></ul>
+      </aside>
+    </div>
   </main>
+
+  <div id="lightbox" class="lightbox">
+    <button id="lightbox-close" class="lightbox-close">✕</button>
+    <div class="lightbox-content" id="lightbox-content"></div>
+  </div>
 
   <script>
     const params = new URLSearchParams(window.location.search);
-    const projectId = params.get("id");
+    const projectId = params.get('id');
 
-    fetch("projects.json")
+    const titleEl = document.getElementById('project-title');
+    const descEl = document.getElementById('project-description');
+    const langEl = document.getElementById('project-languages');
+    const galleryEl = document.getElementById('gallery');
+    const metaList = document.getElementById('meta-list');
+
+    const lightbox = document.getElementById('lightbox');
+    const lightboxContent = document.getElementById('lightbox-content');
+    const lightboxClose = document.getElementById('lightbox-close');
+
+    fetch('projects.json')
       .then(res => res.json())
       .then(data => {
         const project = data.find(p => p.id === projectId);
-        if (!project) return document.body.innerHTML = "<h2>Projet introuvable</h2>";
+        if (!project) {
+          document.body.innerHTML = '<h2>Projet introuvable</h2>';
+          return;
+        }
 
         document.title = project.title;
-        document.getElementById("project-title").textContent = project.title;
-        document.getElementById("project-description").textContent = project.description;
+        titleEl.textContent = project.title;
+        descEl.textContent = project.description;
 
-        // Langages
-        const langList = document.getElementById("project-languages");
+        // Langages & outils
         project.languages.forEach(lang => {
-          const li = document.createElement("li");
-          li.textContent = lang;
-          langList.appendChild(li);
+          const chip = document.createElement('span');
+          chip.className = 'chip';
+          chip.textContent = lang;
+          langEl.appendChild(chip);
         });
 
-       // Galerie d'images et vidéo
-        const gallery = document.getElementById("gallery");
+        // Infos rapides
+        const infos = [
+          ['Identifiant', project.id],
+          ['Nombre d’images', project.images ? project.images.length : 0],
+          ['Vidéo', project.video ? 'Oui' : 'Non']
+        ];
+        infos.forEach(([label, value]) => {
+          const li = document.createElement('li');
+          li.innerHTML = `<strong>${label} :</strong> ${value}`;
+          metaList.appendChild(li);
+        });
 
-        // Ajout des images
+        // Galerie
         if (project.images) {
           project.images.forEach(imgSrc => {
-            const img = document.createElement("img");
-            img.src = imgSrc;
-            img.alt = project.title;
-            img.style.width = "50%";
-            img.style.borderRadius = "8px";
-            gallery.appendChild(img);
+            const ext = imgSrc.split('.').pop().toLowerCase();
+            let element;
+            if (ext === 'pdf') {
+              element = document.createElement('div');
+              element.className = 'pdf-embed';
+              element.innerHTML = `<span>📄</span> <a href="${imgSrc}" target="_blank">${imgSrc}</a>`;
+            } else {
+              element = document.createElement('img');
+              element.src = imgSrc;
+              element.alt = project.title;
+              element.className = 'gallery-item';
+              element.addEventListener('click', () => openLightbox(`<img src='${imgSrc}' alt='${project.title}'>`));
+            }
+            galleryEl.appendChild(element);
           });
         }
 
-        // Ajout de la vidéo si elle existe
         if (project.video) {
-          const video = document.createElement("video");
+          const video = document.createElement('video');
           video.controls = true;
-          video.width = 600; // ou "100%" si tu veux qu'elle prenne toute la largeur
-          video.style.marginTop = "15px";
-          video.style.borderRadius = "8px";
-
-          const source = document.createElement("source");
+          video.className = 'gallery-item';
+          const source = document.createElement('source');
           source.src = project.video;
-          source.type = "video/mp4";
-
+          source.type = 'video/mp4';
           video.appendChild(source);
-          gallery.appendChild(video);
-
-          video.load(); // ⚠️ nécessaire pour que la vidéo se charge
+          galleryEl.appendChild(video);
+          video.addEventListener('click', () => openLightbox(`<video controls autoplay><source src='${project.video}' type='video/mp4'></video>`));
         }
-
       });
+
+    // === Lightbox ===
+    function openLightbox(content) {
+      lightboxContent.innerHTML = content;
+      lightbox.classList.add('open');
+    }
+
+    lightboxClose.addEventListener('click', () => lightbox.classList.remove('open'));
+    lightbox.addEventListener('click', e => {
+      if (e.target === lightbox) lightbox.classList.remove('open');
+    });
+
+    // === Copier lien ===
+    document.getElementById('copy-link').addEventListener('click', e => {
+      e.preventDefault();
+      navigator.clipboard.writeText(window.location.href);
+      alert('Lien copié dans le presse-papiers !');
+    });
+
+    // === Ouvrir galerie ===
+    document.getElementById('open-gallery').addEventListener('click', e => {
+      e.preventDefault();
+      const firstImg = galleryEl.querySelector('img, video');
+      if (firstImg) openLightbox(firstImg.outerHTML);
+    });
+    
   </script>
 </body>
 </html>

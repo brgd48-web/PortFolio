@@ -22,5 +22,21 @@
     "languages": ["Maya", "BluePrint", "Substance3D", "Unreal Engine"],
     "images": ["Projet3D_Terrain.png", "Projet3D_VueFace.jpg", "Projet3D_Vue3_4.jpg"],
     "video": ""
+  },
+   {
+    "id": "generateur_diagramme",
+    "title": "Générateur de diagramme sur les musées Français",
+    "description": "Application Java en groupe de 6 personnes permettant de gé,érer différent graphique sur les musées français. Nous avons suivi le cycle d'évolution du projet et appliqué les méthodes agiles sur plusieurs semaines.",
+    "languages": ["Java", "Git", "GitHub", "VScode"],
+    "images": ["Rapport.pdf"],
+    "video": ""
+  },
+   {
+    "id": "bdd_sql",
+    "title": "Base de donnée SQl sur les émissions carbonnes des équipes de foot françaises",
+    "description": "",
+    "languages": ["SQL", "PostGreSQL", "PGAdmin4"],
+    "images": ["MORVAN-REGEARD-Rapport-BDD-FOOT-G2.pdf"],
+    "video": ""
   }
 ]
