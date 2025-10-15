@@ -20,28 +20,21 @@
         <h2>Description</h2>
         <p id="project-description" class="project-description"></p>
 
-        <div class="actions-row">
-          <a href="#" class="btn primary" id="open-gallery">Ouvrir la galerie</a>
-          <a href="#" class="btn" id="copy-link">Copier le lien</a>
-        </div>
-
         <h3>Langages et Outils</h3>
         <div id="project-languages" class="chips"></div>
+
+        <h3>Tags</h3>
+        <div id="project-tags" class="chips"></div>
 
         <section class="gallery-grid" id="gallery"></section>
       </div>
 
       <aside class="meta-card">
-        <h3>Infos rapides</h3>
+        <h3>Infos du projet</h3>
         <ul class="meta-list" id="meta-list"></ul>
       </aside>
     </div>
   </main>
-
-  <div id="lightbox" class="lightbox">
-    <button id="lightbox-close" class="lightbox-close">✕</button>
-    <div class="lightbox-content" id="lightbox-content"></div>
-  </div>
 
   <script>
     const params = new URLSearchParams(window.location.search);
@@ -50,12 +43,9 @@
     const titleEl = document.getElementById('project-title');
     const descEl = document.getElementById('project-description');
     const langEl = document.getElementById('project-languages');
+    const tagsEl = document.getElementById('project-tags');
     const galleryEl = document.getElementById('gallery');
     const metaList = document.getElementById('meta-list');
-
-    const lightbox = document.getElementById('lightbox');
-    const lightboxContent = document.getElementById('lightbox-content');
-    const lightboxClose = document.getElementById('lightbox-close');
 
     fetch('projects.json')
       .then(res => res.json())
@@ -78,11 +68,21 @@
           langEl.appendChild(chip);
         });
 
-        // Infos rapides
+        // Tags
+        if (project.tags) {
+          project.tags.forEach(tag => {
+            const chip = document.createElement('span');
+            chip.className = 'chip';
+            chip.textContent = tag;
+            tagsEl.appendChild(chip);
+          });
+        }
+
+        // Infos du projet
         const infos = [
-          ['Identifiant', project.id],
-          ['Nombre d’images', project.images ? project.images.length : 0],
-          ['Vidéo', project.video ? 'Oui' : 'Non']
+          ['Année', project.year],
+          ['Durée', project.duration],
+          ['Rôle', project.role]
         ];
         infos.forEach(([label, value]) => {
           const li = document.createElement('li');
@@ -104,7 +104,6 @@
               element.src = imgSrc;
               element.alt = project.title;
               element.className = 'gallery-item';
-              element.addEventListener('click', () => openLightbox(`<img src='${imgSrc}' alt='${project.title}'>`));
             }
             galleryEl.appendChild(element);
           });
@@ -116,38 +115,11 @@
           video.className = 'gallery-item';
           const source = document.createElement('source');
           source.src = project.video;
-          source.type = 'video/mp4';
+          source.type = "video/mp4";
           video.appendChild(source);
           galleryEl.appendChild(video);
-          video.addEventListener('click', () => openLightbox(`<video controls autoplay><source src='${project.video}' type='video/mp4'></video>`));
         }
       });
-
-    // === Lightbox ===
-    function openLightbox(content) {
-      lightboxContent.innerHTML = content;
-      lightbox.classList.add('open');
-    }
-
-    lightboxClose.addEventListener('click', () => lightbox.classList.remove('open'));
-    lightbox.addEventListener('click', e => {
-      if (e.target === lightbox) lightbox.classList.remove('open');
-    });
-
-    // === Copier lien ===
-    document.getElementById('copy-link').addEventListener('click', e => {
-      e.preventDefault();
-      navigator.clipboard.writeText(window.location.href);
-      alert('Lien copié dans le presse-papiers !');
-    });
-
-    // === Ouvrir galerie ===
-    document.getElementById('open-gallery').addEventListener('click', e => {
-      e.preventDefault();
-      const firstImg = galleryEl.querySelector('img, video');
-      if (firstImg) openLightbox(firstImg.outerHTML);
-    });
-    
   </script>
 </body>
 </html>

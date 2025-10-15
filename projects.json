@@ -2,41 +2,61 @@
   {
     "id": "scanner-code-barres",
     "title": "Scanner Code-Barres",
-    "description": "Application mobile permettant de scanner et décoder des codes-barres pour obtenir des informations produits.",
+    "description": "Application mobile permettant de scanner et décoder des codes-barres pour obtenir des informations produits. Intégration d'une base de données locale et affichage des informations détaillées pour chaque produit.",
     "languages": ["HTML", "CSS", "JavaScript"],
     "images": ["ScannerCode_Barre.jpg", "ScannerCode_Barre_2.jpg"],
-    "video": ""
+    "video": "ScannerCode_Barre_Demo.mp4",
+    "year": 2023,
+    "tags": ["mobile", "scanner", "webapp", "frontend"],
+    "duration": "2 mois",
+    "role": "Développement frontend et intégration API"
   },
   {
     "id": "tower-defense",
     "title": "Tower Defense",
-    "description": "Projet réalisé en L2, petit jeu vidéo initiant à l'héritage et aux dépendances.",
+    "description": "Projet réalisé en L2, petit jeu vidéo initiant à l'héritage et aux dépendances. Gestion des vagues d'ennemis, placement de tours et calculs de dégâts. Programmation orientée objet complète.",
     "languages": ["Java"],
     "images": ["projetBriac.png"],
-    "video": "Test_Video_TowerDef.mp4"
+    "video": "Test_Video_TowerDef.mp4",
+    "year": 2024,
+    "tags": ["jeu vidéo", "POO", "Java", "héritage", "logique de jeu"],
+    "duration": "1 mois",
+    "role": "Développement des classes principales et logique du jeu"
   },
   {
     "id": "personnage-3d",
     "title": "Création et animation d'un personnage 3D",
-    "description": "Projet de plusieurs semaines sur la conception 3D, la texture et l'animation d'un personnage et d'un décor.\nLe projet s'est déroulé dans l'école 'Creative Seed'.",
+    "description": "Projet de plusieurs semaines sur la conception 3D, la texture et l'animation d'un personnage et d'un décor. Utilisation de Maya pour le modeling, Substance3D pour les textures et Unreal Engine pour l'animation.",
     "languages": ["Maya", "BluePrint", "Substance3D", "Unreal Engine"],
     "images": ["Projet3D_Terrain.png", "Projet3D_VueFace.jpg", "Projet3D_Vue3_4.jpg"],
-    "video": ""
+    "video": "Animation_3D_Demo.mp4",
+    "year": 2023,
+    "tags": ["3D", "animation", "modélisation", "UnrealEngine", "texture"],
+    "duration": "6 semaines",
+    "role": "Modeling, texturing et animation du personnage principal"
   },
-   {
+  {
     "id": "generateur_diagramme",
     "title": "Générateur de diagramme sur les musées Français",
-    "description": "Application Java en groupe de 6 personnes permettant de gé,érer différent graphique sur les musées français. Nous avons suivi le cycle d'évolution du projet et appliqué les méthodes agiles sur plusieurs semaines.",
-    "languages": ["Java", "Git", "GitHub", "VScode"],
-    "images": ["Rapport.pdf"],
-    "video": ""
+    "description": "Application Java en groupe de 6 personnes permettant de générer différents graphiques sur les musées français. Suivi du cycle d'évolution du projet avec méthodes agiles sur plusieurs semaines. Création d'interfaces graphiques et export HTML.",
+    "languages": ["Java", "Git", "GitHub", "VSCode"],
+    "images": ["Rapport.pdf", "DiagBarre.png", "DiagCamemberts.png"],
+    "video": "Demo_GenerateurDiagrammes.mp4",
+    "year": 2025,
+    "tags": ["Java", "Swing", "agile", "data-visualization", "rapport HTML"],
+    "duration": "3 mois",
+    "role": "Développement interface graphique, diagrammes et intégration des données"
   },
-   {
+  {
     "id": "bdd_sql",
-    "title": "Base de donnée SQl sur les émissions carbonnes des équipes de foot françaises",
-    "description": "",
-    "languages": ["SQL", "PostGreSQL", "PGAdmin4"],
+    "title": "Base de donnée SQL sur les émissions carbone des équipes de foot françaises",
+    "description": "Création d'une base de données SQL pour analyser les émissions de CO2 des équipes de football françaises. Utilisation de PostgreSQL et PGAdmin4 pour la gestion et l'analyse des données.",
+    "languages": ["SQL", "PostgreSQL", "PGAdmin4"],
     "images": ["MORVAN-REGEARD-Rapport-BDD-FOOT-G2.pdf"],
-    "video": ""
+    "video": "",
+    "year": 2024,
+    "tags": ["SQL", "PostgreSQL", "BDD", "analyse", "foot"],
+    "duration": "2 semaines",
+    "role": "Conception de la base, création des tables et requêtes d'analyse"
   }
 ]
