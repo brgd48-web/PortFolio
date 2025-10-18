@@ -168,8 +168,13 @@ header {
 #about .content p {
   color: var(--muted);
   line-height: 1.65;
+  
 }
 
+#about .content {
+  text-align: center;
+  z-index: 2; /* pour passer devant la couche parallax */
+}
 /* contraste amélioré pour les liens du header (focus + hover) */
 header .nav-link { transition: color .18s, transform .18s; }
 header .nav-link:hover, header .nav-link:focus {
@@ -281,7 +286,11 @@ header.scrolled {
   nav ul { gap: 16px; flex-wrap: wrap; justify-content: flex-end; width: 100%; }
 }
 
-/* Bouton retour (global) */
+.btn-cv {
+display:inline-block; padding:9px 14px; background:var(--accent); color:var(--primary); border-radius:8px; font-weight:600; text-decoration:none;
+  transition: background 0.2s ease, color 0.2s ease, transform 0.12s ease; box-shadow:none;
+}
+.btn-cv:hover { background: #357ab8; color: #fff; }
 .btn-retour {
   display: inline-block;
   padding: 10px 16px;

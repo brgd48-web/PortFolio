@@ -2,7 +2,7 @@
   {
     "id": "scanner-code-barres",
     "title": "Scanner Code-Barres",
-    "description": "Application mobile permettant de scanner et décoder des codes-barres pour obtenir des informations produits. Intégration d'une base de données locale et affichage des informations détaillées pour chaque produit.",
+    "description": "Application mobile permettant de scanner des codes barres, ce projet fait suite à une demande pour un collège d'avoir une application simple qui permmet de scanner des QR code. on peut par la suite générer un CSV avec l'heure, la date et le numéro du QR code. Le collège avait besoin de cette application pour scanner des QR code pour un cross. Avec le CSV, on peut facilment avoir un classement et savoir si tout le monde a bien passé la ligne d'arriver",
     "languages": ["HTML", "CSS", "JavaScript"],
     "images": ["ScannerCode_Barre.jpg", "ScannerCode_Barre_2.jpg"],
     "video": "ScannerCode_Barre_Demo.mp4",
@@ -43,9 +43,9 @@
     "images": ["Rapport.pdf", "DiagBarre.png", "DiagCamemberts.png"],
     "video": "Demo_GenerateurDiagrammes.mp4",
     "year": 2025,
-    "tags": ["Java", "Swing", "agile", "data-visualization", "rapport HTML"],
+    "tags": ["Java","Jira", "Swing", "agile", "data-visualization", "rapport HTML"],
     "duration": "4 mois",
-    "role": "Développement interface graphique, diagrammes et intégration des données"
+    "role": "Product OWner, Développement interface graphique, diagrammes et intégration des données"
   },
   {
     "id": "bdd_sql",

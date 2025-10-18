@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", function () {
   
 const target = document.getElementById("about-text");
 if (target) {
-  target.textContent = `Étudiant en informatique (L3 MIAGE), passionné par le développement web et les projets Java. J’aime créer des interfaces intuitives et des applications performantes...`;
+  target.textContent = `Étudiant en informatique en L3 MIAGE, je développe des projets depuis mon enfance, ce qui m’a permis de bâtir des compétences techniques solides et diversifiées. Curieux et motivé, je cherche à approfondir mes connaissances tout en contribuant activement au succès d’une équipe. Mes expériences professionnelles m’ont familiarisé avec le fonctionnement des entreprises et m’ont permis de développer de bonnes compétences relationnelles et organisationnelles. Pour en savoir plus sur mon parcours et mes réalisations, je vous invite à consulter mon CV.`;
   target.classList.add("fade-in");
 }
 
