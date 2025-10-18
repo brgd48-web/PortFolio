@@ -4,13 +4,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Détails du projet</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body class="project-page">
   <header>
     <div class="wrap">
       <h1 id="project-title">Chargement...</h1>
-      <nav><a href="index.html" class="btn btn-retour">← Retour</a></nav>
+      <nav><a href="index.html" class="btn-retour">← Retour</a></nav>
     </div>
   </header>
 
@@ -26,15 +26,22 @@
         <h3>Tags</h3>
         <div id="project-tags" class="chips"></div>
 
-        <section class="gallery-grid" id="gallery"></section>
       </div>
 
       <aside class="meta-card">
         <h3>Infos du projet</h3>
         <ul class="meta-list" id="meta-list"></ul>
+        <h4 style="margin-top:12px; margin-bottom:8px; color:var(--text-secondary); font-weight:600;">Galerie</h4>
+        <section class="gallery-grid small-gallery" id="gallery"></section>
       </aside>
     </div>
   </main>
+  <!-- Lightbox (affichage en grand) -->
+<div id="lightbox" class="lightbox">
+  <span class="lightbox-close">&times;</span>
+  <img id="lightbox-img" src="" alt="Aperçu" />
+  <video id="lightbox-video" controls></video>
+</div>
 
   <script>
     const params = new URLSearchParams(window.location.search);
@@ -95,13 +102,14 @@
           project.images.forEach(imgSrc => {
             const ext = imgSrc.split('.').pop().toLowerCase();
             let element;
+            const fullPath = "images/projets/" + imgSrc;
             if (ext === 'pdf') {
               element = document.createElement('div');
               element.className = 'pdf-embed';
-              element.innerHTML = `<span>📄</span> <a href="${imgSrc}" target="_blank">${imgSrc}</a>`;
+              element.innerHTML = `<span>📄</span> <a href="${fullPath}" target="_blank">`;
             } else {
               element = document.createElement('img');
-              element.src = imgSrc;
+              element.src = fullPath;
               element.alt = project.title;
               element.className = 'gallery-item';
             }
@@ -114,12 +122,126 @@
           video.controls = true;
           video.className = 'gallery-item';
           const source = document.createElement('source');
-          source.src = project.video;
+          source.src = "videos/"+project.video;
           source.type = "video/mp4";
           video.appendChild(source);
           galleryEl.appendChild(video);
         }
+        // === Lightbox ===
+document.addEventListener("click", (e) => {
+  const target = e.target;
+  const lightbox = document.getElementById("lightbox");
+  const imgBox = document.getElementById("lightbox-img");
+  const videoBox = document.getElementById("lightbox-video");
+
+  // Si on clique sur une image ou vidéo de la galerie
+  if (target.closest("#gallery img") || target.closest("#gallery video")) {
+    const src = target.getAttribute("src");
+    if (!src) return;
+
+    // Si c'est une image
+    if (target.tagName === "IMG") {
+      imgBox.src = src;
+      imgBox.style.display = "block";
+      videoBox.style.display = "none";
+    }
+
+    // Si c'est une vidéo
+    if (target.tagName === "VIDEO") {
+      videoBox.src = src;
+      videoBox.style.display = "block";
+      imgBox.style.display = "none";
+    }
+
+    lightbox.style.display = "flex";
+  }
+
+  // Fermer en cliquant sur le fond ou sur la croix
+  if (target.id === "lightbox" || target.classList.contains("lightbox-close")) {
+    lightbox.style.display = "none";
+    imgBox.src = "";
+    videoBox.src = "";
+  }
+});
       });
+      /* ---------- Page transition / title slide controller ---------- */
+(function () {
+  // Liste des sélecteurs à considérer comme "navigation interne"
+  const NAV_SELECTOR = 'a.nav-link, a.voir-plus-btn, a.btn-retour, a[href^="./"], a[href^="/"], a[href^="index.html"], a[href^="projet.html"]';
+
+  // Utility : add .slide-title to h1/h2 if not already set (auto-enhance)
+  function autoMarkTitles() {
+    document.querySelectorAll('h1, h2, .project-title').forEach((el, idx) => {
+      if (!el.classList.contains('slide-title')) {
+        el.classList.add('slide-title');
+        // add simple stagger classes for nicer effect
+        const s = (idx % 3) + 1;
+        el.classList.add(`stagger-${s}`);
+        // alternate direction for variety
+        if (el.tagName === 'H1') el.classList.add('slide-from-left');
+        else el.classList.add('slide-from-right');
+      }
+    });
+  }
+
+  // Apply initial enter state on DOM ready
+  function applyEnter() {
+    document.documentElement.classList.remove('page-exit');
+    // add page-enter after a tiny delay to ensure CSS picks it up
+    setTimeout(() => document.documentElement.classList.add('page-enter'), 20);
+    // also remove any lingering site-fade class later
+    setTimeout(() => document.documentElement.classList.remove('site-fade'), 700);
+  }
+
+  // Intercept internal navigation to play exit animation
+  function bindNavInterception() {
+    document.addEventListener('click', function (ev) {
+      const a = ev.target.closest('a');
+      if (!a) return;
+      // only intercept same-origin navigations with href and no target=_blank
+      const href = a.getAttribute('href');
+      const isNav = a.matches(NAV_SELECTOR) || (href && !href.startsWith('http') && !a.hasAttribute('target'));
+      if (!isNav) return;
+
+      // If the link points to an anchor on the same page, don't intercept
+      if (href && href.startsWith('#')) return;
+
+      // Prevent immediate navigation, play exit animation
+      ev.preventDefault();
+
+      // mark exit
+      document.documentElement.classList.remove('page-enter');
+      document.documentElement.classList.add('page-exit', 'site-fade');
+
+      // compute delay from CSS animation duration (match CSS ~420ms)
+      const NAV_DELAY = 420;
+
+      // After animation, go to target
+      setTimeout(() => {
+        // If href is empty or javascript:void(0) -> do nothing
+        if (!href || href === '#' || href.startsWith('javascript:')) {
+          document.documentElement.classList.remove('page-exit', 'site-fade');
+          return;
+        }
+        // Navigate
+        window.location.href = href;
+      }, NAV_DELAY);
+    }, { passive: false });
+  }
+
+  // On DOM ready
+  document.addEventListener('DOMContentLoaded', function () {
+    autoMarkTitles();
+    applyEnter();
+    bindNavInterception();
+  });
+
+  // Fallback: if page was loaded via back/forward (bfcache), re-apply enter
+  window.addEventListener('pageshow', function (ev) {
+    if (ev.persisted) applyEnter();
+  });
+})();
+
   </script>
 </body>
 </html>

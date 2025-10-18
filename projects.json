@@ -6,7 +6,7 @@
     "languages": ["HTML", "CSS", "JavaScript"],
     "images": ["ScannerCode_Barre.jpg", "ScannerCode_Barre_2.jpg"],
     "video": "ScannerCode_Barre_Demo.mp4",
-    "year": 2023,
+    "year": 2025,
     "tags": ["mobile", "scanner", "webapp", "frontend"],
     "duration": "2 mois",
     "role": "Développement frontend et intégration API"
@@ -20,7 +20,7 @@
     "video": "Test_Video_TowerDef.mp4",
     "year": 2024,
     "tags": ["jeu vidéo", "POO", "Java", "héritage", "logique de jeu"],
-    "duration": "1 mois",
+    "duration": "2 mois",
     "role": "Développement des classes principales et logique du jeu"
   },
   {
@@ -30,9 +30,9 @@
     "languages": ["Maya", "BluePrint", "Substance3D", "Unreal Engine"],
     "images": ["Projet3D_Terrain.png", "Projet3D_VueFace.jpg", "Projet3D_Vue3_4.jpg"],
     "video": "Animation_3D_Demo.mp4",
-    "year": 2023,
+    "year": 2025,
     "tags": ["3D", "animation", "modélisation", "UnrealEngine", "texture"],
-    "duration": "6 semaines",
+    "duration": "2 mois",
     "role": "Modeling, texturing et animation du personnage principal"
   },
   {
@@ -44,7 +44,7 @@
     "video": "Demo_GenerateurDiagrammes.mp4",
     "year": 2025,
     "tags": ["Java", "Swing", "agile", "data-visualization", "rapport HTML"],
-    "duration": "3 mois",
+    "duration": "4 mois",
     "role": "Développement interface graphique, diagrammes et intégration des données"
   },
   {
@@ -56,7 +56,7 @@
     "video": "",
     "year": 2024,
     "tags": ["SQL", "PostgreSQL", "BDD", "analyse", "foot"],
-    "duration": "2 semaines",
+    "duration": "1 mois",
     "role": "Conception de la base, création des tables et requêtes d'analyse"
   }
 ]

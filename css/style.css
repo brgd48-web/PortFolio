@@ -1,12 +1,13 @@
 /* === Variables de couleurs === */
-:root {
-  --primary: #f0f0f0;      
-  --bg: #1e1f22;                 
-  --card: #2a2c30;              
-  --hover-shadow: rgba(76,144,208,0.2); 
+:root{
+  --primary: #e6eef7;       /* texte principal (clair mais pas pur white) */
+  --muted: #b9c7db;         /* texte secondaire */
+  --bg: #071026;            /* fond général (bleu nuit profond) */
+  --card: rgba(30,34,40,0.72); /* carte semi-transparente */
+  --overlay: rgba(3,7,18,0.55); /* overlay sombre posé sur l'image */
+  --hover-shadow: rgba(76,144,208,0.2);
   --radius: 12px;
-  --accent: #3a3c3f;            
-  --text-secondary: #f0f0f0;
+  --accent: #2c6ea6;
   --header-height: 72px;
 }
 
@@ -19,6 +20,13 @@ body {
   color: var(--primary);
   line-height: 1.6;
 }
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden; /* empêche tout débordement horizontal */
+}
+
+
 
 a {
   color: var(--primary);
@@ -37,9 +45,9 @@ header {
   z-index: 1000;
   display: flex;
   align-items: center;
-  background: rgba(20,20,20,0.28);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
+  background: transparent;
   border-bottom: 1px solid rgba(255,255,255,0.04);
   transition: background 0.35s ease, box-shadow 0.35s ease;
 }
@@ -96,18 +104,120 @@ nav .nav-link::after {
 nav .nav-link:hover::after { width: 100%; }
 
 section { scroll-margin-top: calc(var(--header-height)); }
-
-#about {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
-  text-align: center;
-  padding-top: 100px;
-  margin-bottom: 2rem;
+/* ------------- Full-bleed reliable fix ------------- */
+/* applique sur la section parallax pour étendre hors du container */
+#about.parallax-section {
+  position: relative;
+  margin-top: calc(-1 * (var(--header-height) + 18px));
+  width: 100vw;                /* largeur réelle de la fenêtre */
+  left: 50%;                   /* recentrage */
+  right: 50%;
+  margin-left: -50vw;          /* compense la translation */
+  margin-right: -50vw;
+  height: 100vh;
+  overflow: hidden;
+  box-sizing: border-box;
+  background: transparent;     /* s'assurer qu'il n'y a pas de fond gris */
+  border-radius: 0;            /* annule tout arrondi héritée */
+  padding: 0;                  /* éviter le padding du container */
 }
+/* === Overlay sombre sur tes calques parallax (améliore lisibilité) === */
+/* applique un pseudo-élément qui assombrit l'image sans la modifier */
+#about.parallax-section .parallax-layer::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1; /* juste au-dessus de l'image */
+  pointer-events: none;
+  /* combinaison d'un overlay uniforme + un v léger gradient pour profondeur */
+  background: linear-gradient(
+    to bottom,
+    rgba(3,7,18,0.48) 0%,
+    rgba(3,7,18,0.55) 50%,
+    rgba(3,7,18,0.62) 100%
+  );
+}
+
+/* assure que le texte est bien au-dessus de l'overlay */
+#about.parallax-section .content { position: relative; z-index: 5; }
+
+/* header : texte plus lisible avec légère ombre + couleur adaptée */
+header h1, header .nav-link {
+  color: var(--primary);
+  text-shadow: 0 1px 2px rgba(0,0,0,0.6), 0 2px 6px rgba(0,0,0,0.35);
+}
+
+/* si certaines zones de l'image sont très claires, tu peux renforcer l'overlay au-dessus du header */
+header {
+  background: linear-gradient(to bottom, rgba(7,16,38,0.12), rgba(7,16,38,0.06));
+}
+
+/* petits ajustements pour le bloc À propos : carte semi-transparente + texte plus lisible */
+#about.parallax-section .content .card,
+#about.parallax-section .content .about-trigger {
+  background: var(--card);
+  color: var(--primary);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.45);
+}
+
+/* titres et paragraphes dans #about */
+#about .content h2, #about .content h3 {
+  color: var(--primary);
+  text-shadow: 0 2px 10px rgba(3,7,18,0.6);
+}
+#about .content p {
+  color: var(--muted);
+  line-height: 1.65;
+}
+
+/* contraste amélioré pour les liens du header (focus + hover) */
+header .nav-link { transition: color .18s, transform .18s; }
+header .nav-link:hover, header .nav-link:focus {
+  color: #ffffff;
+  text-shadow: 0 2px 16px rgba(44,110,166,0.25);
+  transform: translateY(-2px);
+}
+
+/* si tu veux un overlay plus léger au scroll (optionnel) */
+header.scrolled { background: linear-gradient(to bottom, rgba(7,16,38,0.18), rgba(7,16,38,0.08)); }
+
+/* accessibilité - si besoin d'un fond encore plus sombre sous le texte pour garantir WCAG */
+#about.parallax-section .content .high-contrast {
+  background: rgba(2,6,12,0.6);
+  padding: 12px;
+  border-radius: 8px;
+}
+/* couches du parallax prennent tout l'espace */
+#about.parallax-section .parallax-layer {
+  z-index: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  transform: translate3d(0,0,0);
+}
+
+/* assure le contenu lisible au-dessus */
+#about.parallax-section .content {
+  position: relative;
+  z-index: 5;
+  width: 90%;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: calc(var(--header-height) + 20px) 20px 20px;
+  padding-top: calc(var(--header-height) + 18px);
+}
+
+/* empêche tout débordement horizontal indésirable */
+html, body {
+  overflow-x: hidden;
+}
+
 #about h2 { font-size: 2em; margin-bottom: 30px; color: var(--primary); }
-#about .card { max-width: 800px; width: 90%; }
 
 #about-text {
   display: inline;
@@ -117,20 +227,45 @@ section { scroll-margin-top: calc(var(--header-height)); }
   color: var(--primary);
   position: relative;
 }
-#about-text::after {
-  content: '';
-  display: inline-block;
-  width: 2px;
-  background-color: var(--primary);
-  margin-left: 2px;
-  animation: blink 0.7s steps(1) infinite;
-  height: 1em;
-  vertical-align: bottom;
-}
 @keyframes blink {
   0%, 50%, 100% { background-color: var(--primary); }
   25%, 75% { background-color: transparent; }
 }
+.fade-in {
+  opacity: 0;
+  transform: translateX(20px); /* petite translation pour effet subtil */
+  animation: fadeInAppear 1s ease forwards;
+}
+
+@keyframes fadeInAppear {
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* voile en bas de la section parallax pour transition douce */
+.parallax-bottom-fade {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 18vh;                 /* adaptatif : 18vh donne une transition douce */
+  max-height: 220px;            /* limite la hauteur sur grands écrans */
+  z-index: 9;                   /* doit être au-dessus des calques, sous le .content (z-index:10) */
+  pointer-events: none;
+  background: linear-gradient(
+    to bottom,
+    rgba(30,31,34,0) 0%,
+    rgba(30,31,34,0.15) 35%,
+    rgba(30,31,34,0.5) 65%,
+    var(--bg) 100%
+  );
+  transition: opacity 350ms ease;
+}
+
+
+
 
 /* === Effet au scroll : header devient plus opaque et ombré === */
 header.scrolled {
@@ -304,7 +439,19 @@ header.scrolled {
 
 /* === Footer === */
 footer { text-align: center; padding: 20px; background: var(--accent); color: var(--primary); border-top: 1px solid var(--accent); margin-top: 40px; }
+.host-info {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.9em;
+  opacity: 0.8;
+}
 
+.raspberry-logo {
+  width: 22px;
+  height: 22px;
+  vertical-align: middle;
+}
 /* -----------------------------
    Project details styles (scoped)
    -----------------------------
@@ -347,9 +494,56 @@ footer { text-align: center; padding: 20px; background: var(--accent); color: va
 .project-page .project-sub { margin:0; color:var(--text-secondary); opacity:0.9; }
 
 /* meta card (aside) */
-.project-page .meta-card { padding:14px; background:var(--card); border-radius:10px; }
-.project-page .meta-list { list-style:none; padding:0; margin:0; display:grid; gap:8px; }
-.project-page .meta-list li { display:flex; justify-content:space-between; align-items:center; font-size:0.95rem; color:var(--text-secondary); }
+/* === Petite galerie dans la meta-card (vignettes verticales) === */
+.project-page .meta-card .small-gallery {
+  display: grid;
+  grid-template-columns: 1fr;      /* une colonne */
+  gap: 10px;
+  margin-top: 6px;
+}
+
+/* vignettes réduites et adaptées à l'aside */
+.project-page .meta-card .small-gallery .gallery-item,
+.project-page .meta-card .small-gallery img,
+.project-page .meta-card .small-gallery video,
+.project-page .meta-card .small-gallery iframe {
+  width: 100%;
+  height: 80px;                   /* hauteur réduite */
+  object-fit: cover;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+/* hover : léger effet */
+.project-page .meta-card .small-gallery .gallery-item:hover,
+.project-page .meta-card .small-gallery img:hover {
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 10px 24px var(--hover-shadow);
+}
+
+/* Pour les PDF fallback (icône + lien), rendre compact */
+.project-page .meta-card .small-gallery .pdf-embed {
+  height: 56px;
+  padding: 8px;
+  font-size: 0.95rem;
+  align-items: center;
+}
+
+/* Sur mobile on garde la galerie compacte mais plus haute */
+@media (max-width: 1000px) {
+  .project-page .meta-card .small-gallery .gallery-item,
+  .project-page .meta-card .small-gallery img {
+    height: 120px;
+  }
+}
+
+/* Option : si tu veux que la meta-card ait un max-height et devienne scrollable */
+.project-page .meta-card {
+  max-height: calc(70vh - var(--header-height));
+  overflow-y: auto;
+  padding-bottom: 14px; /* espace pour la galerie */
+}
 
 /* languages chips */
 .project-page .chips { display:flex; flex-wrap:wrap; gap:8px; margin-top:10px; }
@@ -411,4 +605,144 @@ footer { text-align: center; padding: 20px; background: var(--accent); color: va
 @media (max-width:600px) {
   .project-page .project-wrap { padding: 0 8px; }
 }
+/* ---------- Page transition & title slide effects ---------- */
+/* container state (used to coordinate enter/exit) */
+.page-enter .slide-title { animation: slideIn 600ms cubic-bezier(.22,.9,.32,1) both; }
+.page-exit  .slide-title { animation: slideOut 420ms cubic-bezier(.4,.0,.2,1) both; }
+
+/* variations possibles */
+.slide-from-left  { transform-origin: left center; }
+.slide-from-right { transform-origin: right center; }
+.slide-from-top   { transform-origin: center top; }
+
+/* keyframes */
+@keyframes slideIn {
+  0%   { opacity: 0; transform: translateX(-30px) translateY(0) scale(.98); filter: blur(4px); }
+  60%  { opacity: 1; transform: translateX(6px) translateY(0) scale(1.02); filter: blur(0); }
+  100% { opacity: 1; transform: translateX(0) translateY(0) scale(1); }
+}
+
+@keyframes slideOut {
+  0%   { opacity: 1; transform: translateX(0) translateY(0) scale(1); }
+  100% { opacity: 0; transform: translateX(-30px) translateY(0) scale(.98); filter: blur(4px); }
+}
+
+/* subtle stagger for multiple titles on same page */
+.slide-title.stagger-1 { animation-delay: 0ms; }
+.slide-title.stagger-2 { animation-delay: 80ms; }
+.slide-title.stagger-3 { animation-delay: 160ms; }
+
+/* optional: smooth page fade while exiting */
+.page-exit .site-fade {
+  animation: fadeOutBody 420ms ease forwards;
+}
+@keyframes fadeOutBody {
+  from { opacity: 1; }
+  to   { opacity: 0.02; transform: scale(.995); }
+}
+/* === Section Contact === */
+#contact {
+  text-align: center;
+}
+
+#contact .contact-card {
+  display: inline-block;
+  background: var(--card);
+  padding: 1.5rem 2rem;
+  border-radius: var(--radius);
+  margin-top: 1rem;
+  color: var(--primary);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+}
+
+#contact a {
+  color: #357ab8;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+#contact a:hover {
+  text-decoration: underline;
+  color: #fff;
+}
+/* === Formulaire de contact (intégré au design) === */
+.contact-form {
+  max-width: 600px;
+  margin: 1.2rem auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  padding: 1.25rem;
+  background: var(--card);
+  border-radius: var(--radius);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+}
+
+.contact-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  font-weight: 600;
+  color: var(--primary);
+  font-size: 0.98rem;
+}
+
+.contact-form input[type="text"],
+.contact-form input[type="email"],
+.contact-form textarea {
+  padding: 0.7rem;
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 10px;
+  background: rgba(255,255,255,0.02);
+  color: var(--primary);
+  font-size: 1rem;
+  transition: box-shadow 0.15s, border-color 0.15s;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+  outline: none;
+  border-color: #357ab8;
+  box-shadow: 0 6px 18px rgba(53,122,184,0.08);
+  background: rgba(255,255,255,0.03);
+}
+
+.form-actions {
+  display:flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.contact-form .btn {
+  padding: 10px 14px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+#formMessage {
+  color: #eaf5ff;
+  font-weight: 600;
+}
+
+/* états */
+.contact-form .sending { opacity: 0.85; pointer-events: none; transform: none; }
+.contact-form .success { background: linear-gradient(90deg, rgba(53,122,184,0.12), rgba(255,255,255,0.01)); border: 1px solid rgba(53,122,184,0.14); }
+.contact-form .error { border: 1px solid rgba(220,80,80,0.12); background: rgba(220,80,80,0.03); }
+
+/* responsive */
+@media (max-width: 600px) {
+  .contact-form { margin: 0.8rem; padding: 1rem; }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+
 

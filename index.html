@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Mon Portfolio — Galerie</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="css/style.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 </head>
 <body>
@@ -26,30 +26,38 @@
 
   <main class="container">
 
-    <!-- === À propos === -->
-    <section id="about" class="full-height">
-      <h2>À propos de moi</h2>
-      <div class="card about-trigger" style="cursor: pointer;">
-      <p id="about-text"></p>
+    <!-- === À propos (full-bleed parallax) === -->
+    <section id="about" class="parallax-section">
+      <!-- couche parallax unique (ou plusieurs si tu veux superposer) -->
+      <div class="parallax-layer"
+           style="background-image: url('https://images.unsplash.com/photo-1644088379091-d574269d422f?fm=jpg&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8bmV0d29ya3xlbnwwfHwwfHx8MA%3D%3D&ixlib=rb-4.1.0&q=60&w=3000');"
+           data-speed="0.6"></div>
+
+      <div class="content">
+        <h2>À propos de moi</h2>
+        <p id="about-text"></p>
       </div>
+
+      <!-- voile de transition vers la section suivante -->
+      <div class="parallax-bottom-fade" aria-hidden="true"></div>
     </section>
 
     <!-- === Projets === -->
     <section id="projets">
       <h2>Mes Projets</h2>
-      <div class="projet-container">
 
+      <div class="projet-container">
         <article class="projet-card card">
-          <img src="ScannerCode_Barre.jpg" alt="Scanner Code-Barres" />
+          <img src="images/projets/ScannerCode_Barre.jpg" alt="Scanner Code-Barres" />
           <div class="projet-info">
             <h3>Scanner Code-Barres</h3>
             <p>Application mobile permettant de scanner et décoder des codes-barres pour obtenir des informations produits.</p>
-            <a href="projet.html?id=scanner-code-barres" class="voir-plus-btn">Voir plus</a>
+            <a href="images/projets/projet.html?id=scanner-code-barres" class="voir-plus-btn">Voir plus</a>
           </div>
         </article>
 
         <article class="projet-card card">
-          <img src="projetBriac.png" alt="Tower Defense" />
+          <img src="images/projets/projetBriac.png" alt="Tower Defense" />
           <div class="projet-info">
             <h3>Tower Defense</h3>
             <p>Site web personnel moderne présentant mes projets, compétences et parcours.</p>
@@ -58,22 +66,27 @@
         </article>
 
         <article class="projet-card card">
-          <img src="Projet3D_VueFace.jpg" alt="Modélisation 3D" />
+          <img src="images/projets/Projet3D_VueFace.jpg" alt="Modélisation 3D" />
           <div class="projet-info">
             <h3>Modélisation 3D et animation d'un personnage</h3>
             <p>Création d’un personnage animé en 3D avec Maya et Unreal Engine.</p>
             <a href="projet.html?id=personnage-3d" class="voir-plus-btn">Voir plus</a>
           </div>
         </article>
+
         <article class="projet-card card">
-          <img src="MORVAN-REGEARD-Rapport-BDD-FOOT-G2.pdf" alt="Base de données" />
+          <!-- si tu veux afficher un PDF dans une vignette, utilise une icône + lien plutôt qu'un <img src="..pdf"> -->
+          <div class="pdf-embed">
+            <span class="fa fa-file-pdf"></span>
+            <a href="MORVAN-REGEARD-Rapport-BDD-FOOT-G2.pdf" target="_blank" rel="noopener">MORVAN-REGEARD - Rapport BDD</a>
+          </div>
           <div class="projet-info">
             <h3>Base de données</h3>
             <p>Gestion d’un stock à l’aide de codes QR et barres, avec interface web et base de données.</p>
             <a href="projet.html?id=bdd_sql" class="voir-plus-btn">Voir plus</a>
           </div>
         </article>
-        </article>
+
         <article class="projet-card card">
           <img src="" alt="Génération de graphique" />
           <div class="projet-info">
@@ -82,73 +95,92 @@
             <a href="projet.html?id=generateur_diagramme" class="voir-plus-btn">Voir plus</a>
           </div>
         </article>
-
-        <!-- Tu peux dupliquer ce bloc pour d'autres variantes -->
-      </div>
+      </div> <!-- .projet-container -->
     </section>
 
     <!-- === Compétences === -->
-   <!-- === Compétences === -->
-  <section id="skills" class="full-height">
-    <h2>Mes Compétences</h2>
-    <div class="card-section">
+    <section id="skills" class="full-height">
+      <h2>Mes Compétences</h2>
+      <div class="card-section">
 
-      <div class="card">
-        <h3>Langages de programmation</h3>
-        <ul class="skills-grid">
-          <li data-skill="HTML"><i class="fab fa-html5"></i> HTML</li>
-          <li data-skill="CSS"><i class="fab fa-css3-alt"></i> CSS</li>
-          <li data-skill="JavaScript"><i class="fab fa-js-square"></i> JavaScript</li>
-          <li data-skill="Java"><i class="fab fa-java"></i> Java</li>
-          <li data-skill="Python"><i class="fab fa-python"></i> Python</li>
-          <li data-skill="Scala"><i class="fas fa-code"></i> Scala</li>
-          <li data-skill="SQL"><i class="fas fa-database"></i> SQL</li>
-          <li data-skill="PostgreSQL"><i class="fas fa-database"></i> PostgreSQL</li>
-          <li data-skill="Blueprint"><i class="fas fa-cogs"></i> Blueprint</li>
-        </ul>
+        <div class="card">
+          <h3>Langages de programmation</h3>
+          <ul class="skills-grid">
+            <li data-skill="HTML"><i class="fab fa-html5"></i> HTML</li>
+            <li data-skill="CSS"><i class="fab fa-css3-alt"></i> CSS</li>
+            <li data-skill="JavaScript"><i class="fab fa-js-square"></i> JavaScript</li>
+            <li data-skill="Java"><i class="fab fa-java"></i> Java</li>
+            <li data-skill="Python"><i class="fab fa-python"></i> Python</li>
+            <li data-skill="Scala"><i class="fas fa-code"></i> Scala</li>
+            <li data-skill="SQL"><i class="fas fa-database"></i> SQL</li>
+            <li data-skill="PostgreSQL"><i class="fas fa-database"></i> PostgreSQL</li>
+            <li data-skill="Blueprint"><i class="fas fa-cogs"></i> Blueprint</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <h3>Environnements</h3>
+          <ul class="skills-grid">
+            <li data-skill="Eclipse"><i class="fas fa-code"></i> Eclipse</li>
+            <li data-skill="PostgreSQL"><i class="fas fa-database"></i> PostgreSQL</li>
+            <li data-skill="IntelliJ"><i class="fas fa-laptop-code"></i> IntelliJ</li>
+            <li data-skill="VSCode"><i class="fas fa-terminal"></i> VS Code</li>
+            <li data-skill="Maya"><i class="fas fa-cube"></i> Maya</li>
+            <li data-skill="Unreal Engine"><i class="fas fa-gamepad"></i> Unreal Engine</li>
+            <li data-skill="Substance3D"><i class="fas fa-paint-brush"></i> Substance 3D</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <h3>Outils</h3>
+          <ul class="skills-grid">
+            <li data-skill="Git"><i class="fab fa-git-alt"></i> Git</li>
+            <li data-skill="GitHub"><i class="fab fa-github"></i> GitHub</li>
+          </ul>
+        </div>
+
       </div>
-
-      <div class="card">
-        <h3>Environnements</h3>
-        <ul class="skills-grid">
-          <li data-skill="Eclipse"><i class="fas fa-code"></i> Eclipse</li>
-          <li data-skill="PostgreSQL"><i class="fas fa-database"></i> PostgreSQL</li>
-          <li data-skill="IntelliJ"><i class="fas fa-laptop-code"></i> IntelliJ</li>
-          <li data-skill="VSCode"><i class="fas fa-terminal"></i> VS Code</li>
-          <li data-skill="Maya"><i class="fas fa-cube"></i> Maya</li>
-          <li data-skill="Unreal Engine"><i class="fas fa-gamepad"></i> Unreal Engine</li>
-          <li data-skill="Substance3D"><i class="fas fa-paint-brush"></i> Substance 3D</li>
-        </ul>
-      </div>
-
-      <div class="card">
-        <h3>Outils</h3>
-        <ul class="skills-grid">
-          <li data-skill="Git"><i class="fab fa-git-alt"></i> Git</li>
-          <li data-skill="GitHub"><i class="fab fa-github"></i> GitHub</li>
-        </ul>
-      </div>
-
-    </div>
-  </section>
+    </section>
 
     <section id="related-projects" class="card" style="display:none;">
       <h3>Projets liés à cette compétence</h3>
       <ul id="project-links"></ul>
     </section>
-    <div id="sidebar" class="sidebar">
-  <div class="sidebar-header">
-    <h3>Projets liés</h3>
-    <span class="close-sidebar"><i class="fas fa-times"></i></span>
-  </div>
-  <ul id="sidebar-projects"></ul>
-</div>
+
+    <div id="sidebar" class="sidebar" aria-hidden="true">
+      <div class="sidebar-header">
+        <h3>Projets liés</h3>
+        <button class="close-sidebar" aria-label="Fermer le panneau"><i class="fas fa-times"></i></button>
+      </div>
+      <ul id="sidebar-projects"></ul>
+    </div>
+
     <!-- === Contact === -->
-    <section id="contact" class="full-height">
-      <h2>Contact</h2>
-       <div class="card">
-      <p>📧 <a href="https:/www.gmail.com">brg48@gmail.com</a></p>
-      <p>🔗 <a href="https://www.linkedin.com" target="_blank">LinkedIn</a> | <a href="https://github.com" target="_blank">GitHub</a></p>
+    <section id="contact" class="contactForm">
+      <h2>Si vous souhaitez me contacter :</h2>
+
+      <form id="contactForm" class="contact-form card" novalidate>
+        <label>
+          Nom :
+          <input type="text" name="name" required placeholder="Votre nom">
+        </label>
+
+        <label>
+          Email :
+          <input type="email" name="email" required placeholder="Votre email">
+        </label>
+
+        <label>
+          Message :
+          <textarea name="message" required placeholder="Votre message..."></textarea>
+        </label>
+
+        <button type="button" id="sendBtn" class="btn primary">Envoyer</button>
+      </form>
+
+      <p class="contact-info">
+        📧 <a href="mailto:brg48@gmail.com">brg48@gmail.com</a>
+      </p>
     </section>
 
   </main>
@@ -159,40 +191,6 @@
   </footer>
 
   <!-- === Script principal === -->
-  <script src="script.js"></script>
-  <div id="aboutModal" class="modal">
-    <div class="modal-content">
-      <span class="close">&times;</span>
-      <h3>À propos de moi</h3>
-      <p>Étudiant en informatique (L3 MIAGE), passionné par le développement web et les projets Java. J’aime créer des interfaces intuitives et des applications performantes.
-Curieux et rigoureux, je m’intéresse à toutes les étapes du cycle de vie d’un projet, de l’analyse des besoins à la mise en production.
-J’ai acquis de solides compétences en programmation orientée objet grâce à mes projets universitaires en Java, et je maîtrise également HTML, CSS et JavaScript pour le développement web.
-Mon intérêt pour le front-end m’a poussé à explorer React et les frameworks modernes, afin de concevoir des interfaces interactives et responsives.
-En parallèle, j’ai travaillé avec des bases de données PostgreSQL, ce qui m’a permis de gérer efficacement la persistance des données et d’optimiser mes requêtes.
-J’apprécie particulièrement le développement d’applications full-stack, où je peux combiner logique métier, bases de données et design d’interface.
-Au cours de mes études, j’ai participé à plusieurs projets collaboratifs, ce qui m’a permis de développer mon sens du travail en équipe et ma capacité à communiquer clairement mes idées.
-Je suis également habitué à utiliser des outils de gestion de version comme Git, ce qui facilite la collaboration et le suivi des évolutions des projets.
-La réalisation de projets concrets, tels que des jeux Java ou des applications web interactives, m’a permis d’améliorer ma créativité et mon esprit de résolution de problèmes.
-Je suis motivé par la recherche d’optimisation et la création de solutions élégantes et efficaces pour répondre aux besoins des utilisateurs.
-En dehors du développement, je m’intéresse aux bonnes pratiques de conception et aux design patterns, afin de produire un code maintenable et évolutif.
-J’ai un goût prononcé pour l’apprentissage continu, ce qui me pousse à me tenir informé des nouvelles technologies et des tendances du secteur informatique.
-J’aime expérimenter de nouvelles bibliothèques et frameworks, afin d’élargir mes compétences et de trouver la solution la plus adaptée à chaque projet.
-Mon expérience en Java m’a appris à gérer des projets complexes et à structurer mes programmes de manière claire et modulaire.
-Je porte une attention particulière à l’expérience utilisateur, car je crois qu’une interface intuitive est essentielle pour l’adoption d’une application.
-J’ai également travaillé sur la création de rapports et de visualisations de données, ce qui m’a permis de développer des compétences en statistiques et en représentation graphique.
-La gestion de projets étudiants m’a appris à respecter les délais et à organiser efficacement mes tâches, tout en maintenant un haut niveau de qualité.
-Je suis capable de m’adapter rapidement à de nouveaux environnements techniques et de résoudre les problèmes de manière autonome ou collaborative.
-J’ai participé à des projets alliant backend et frontend, ce qui m’a donné une vision complète des applications modernes.
-Je suis particulièrement attiré par le développement web, mais j’apprécie aussi les projets orientés desktop et mobile, notamment en Java.
-Mon objectif est de continuer à progresser dans le développement d’applications performantes et bien conçues, tout en découvrant de nouvelles technologies.
-Je suis convaincu que la curiosité et la persévérance sont essentielles pour réussir dans le domaine informatique.
-En résumé, je combine passion, rigueur et créativité pour mener à bien mes projets et produire des applications de qualité.
-Je suis prêt à relever de nouveaux défis et à contribuer activement à des projets ambitieux, qu’il s’agisse d’applications web, de logiciels Java ou de solutions innovantes.
-Ma formation en MIAGE me donne une solide base théorique, tandis que mes projets pratiques renforcent mes compétences techniques et mon sens du détail.
-Je m’intéresse également à l’optimisation des performances et à l’architecture logicielle pour créer des solutions durables et efficaces.
-Collaboratif et autonome, je sais m’intégrer dans des équipes multidisciplinaires tout en apportant mes idées et mon expertise.
-Enfin, je cherche constamment à améliorer mes compétences et à rester à jour avec les évolutions du secteur informatique, afin de proposer des solutions modernes et adaptées.</p>
-    </div>
-  </div>
+  <script src="js/script.js"></script>
 </body>
 </html>
