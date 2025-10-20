@@ -43,205 +43,255 @@
   <video id="lightbox-video" controls></video>
 </div>
 
-  <script>
-    const params = new URLSearchParams(window.location.search);
-    const projectId = params.get('id');
+ <script>
+  const params = new URLSearchParams(window.location.search);
+  const projectId = params.get('id');
 
-    const titleEl = document.getElementById('project-title');
-    const descEl = document.getElementById('project-description');
-    const langEl = document.getElementById('project-languages');
-    const tagsEl = document.getElementById('project-tags');
-    const galleryEl = document.getElementById('gallery');
-    const metaList = document.getElementById('meta-list');
+  const titleEl = document.getElementById('project-title');
+  const descEl = document.getElementById('project-description');
+  const langEl = document.getElementById('project-languages');
+  const tagsEl = document.getElementById('project-tags');
+  const galleryEl = document.getElementById('gallery');
+  const metaList = document.getElementById('meta-list');
 
-    fetch('projects.json')
-      .then(res => res.json())
-      .then(data => {
-        const project = data.find(p => p.id === projectId);
-        if (!project) {
-          document.body.innerHTML = '<h2>Projet introuvable</h2>';
-          return;
-        }
+  const IMAGES_BASE = "images/projets/";
+  const VIDEOS_BASE = "videos/";
+  const FILES_BASE = "pdfs/"; // <-- tes PDFs ici
 
-        document.title = project.title;
-        titleEl.textContent = project.title;
-        descEl.textContent = project.description;
+  // Helper pour créer une vignette PDF (DIV, pas <a> pour éviter nested anchors)
+  function createPdfThumb(filename) {
+    const fullPath = FILES_BASE + filename;
+    const wrap = document.createElement('div');
+    wrap.className = 'pdf-embed gallery-item';
+    wrap.setAttribute('data-file', filename);
 
-        // Langages & outils
-        project.languages.forEach(lang => {
+    wrap.innerHTML = `
+      <div class="pdf-thumb">
+        <div class="pdf-icon">📄</div>
+        <div class="pdf-info">
+          <div class="pdf-name">${filename}</div>
+          <div class="pdf-actions">
+            <a class="pdf-open" href="${fullPath}" target="_blank" rel="noopener noreferrer">Ouvrir</a>
+            <a class="pdf-download" href="${fullPath}" download="${filename}"</a>
+          </div>
+        </div>
+      </div>
+    `;
+    return wrap;
+  }
+
+  fetch('projects.json')
+    .then(res => res.json())
+    .then(data => {
+      const project = data.find(p => p.id === projectId);
+      if (!project) {
+        document.body.innerHTML = '<h2>Projet introuvable</h2>';
+        return;
+      }
+
+      document.title = project.title;
+      titleEl.textContent = project.title;
+      descEl.textContent = project.description;
+
+      // Langages & outils
+      project.languages.forEach(lang => {
+        const chip = document.createElement('span');
+        chip.className = 'chip';
+        chip.textContent = lang;
+        langEl.appendChild(chip);
+      });
+
+      // Tags
+      if (project.tags) {
+        project.tags.forEach(tag => {
           const chip = document.createElement('span');
           chip.className = 'chip';
-          chip.textContent = lang;
-          langEl.appendChild(chip);
+          chip.textContent = tag;
+          tagsEl.appendChild(chip);
         });
-
-        // Tags
-        if (project.tags) {
-          project.tags.forEach(tag => {
-            const chip = document.createElement('span');
-            chip.className = 'chip';
-            chip.textContent = tag;
-            tagsEl.appendChild(chip);
-          });
-        }
-
-        // Infos du projet
-        const infos = [
-          ['Année', project.year],
-          ['Durée', project.duration],
-          ['Rôle', project.role]
-        ];
-        infos.forEach(([label, value]) => {
-          const li = document.createElement('li');
-          li.innerHTML = `<strong>${label} :</strong> ${value}`;
-          metaList.appendChild(li);
-        });
-
-        // Galerie
-        if (project.images) {
-          project.images.forEach(imgSrc => {
-            const ext = imgSrc.split('.').pop().toLowerCase();
-            let element;
-            const fullPath = "images/projets/" + imgSrc;
-            if (ext === 'pdf') {
-              element = document.createElement('div');
-              element.className = 'pdf-embed';
-              element.innerHTML = `<span>📄</span> <a href="${fullPath}" target="_blank">`;
-            } else {
-              element = document.createElement('img');
-              element.src = fullPath;
-              element.alt = project.title;
-              element.className = 'gallery-item';
-            }
-            galleryEl.appendChild(element);
-          });
-        }
-
-        if (project.video) {
-          const video = document.createElement('video');
-          video.controls = true;
-          video.className = 'gallery-item';
-          const source = document.createElement('source');
-          source.src = "videos/"+project.video;
-          source.type = "video/mp4";
-          video.appendChild(source);
-          galleryEl.appendChild(video);
-        }
-        // === Lightbox ===
-document.addEventListener("click", (e) => {
-  const target = e.target;
-  const lightbox = document.getElementById("lightbox");
-  const imgBox = document.getElementById("lightbox-img");
-  const videoBox = document.getElementById("lightbox-video");
-
-  // Si on clique sur une image ou vidéo de la galerie
-  if (target.closest("#gallery img") || target.closest("#gallery video")) {
-    const src = target.getAttribute("src");
-    if (!src) return;
-
-    // Si c'est une image
-    if (target.tagName === "IMG") {
-      imgBox.src = src;
-      imgBox.style.display = "block";
-      videoBox.style.display = "none";
-    }
-
-    // Si c'est une vidéo
-    if (target.tagName === "VIDEO") {
-      videoBox.src = src;
-      videoBox.style.display = "block";
-      imgBox.style.display = "none";
-    }
-
-    lightbox.style.display = "flex";
-  }
-
-  // Fermer en cliquant sur le fond ou sur la croix
-  if (target.id === "lightbox" || target.classList.contains("lightbox-close")) {
-    lightbox.style.display = "none";
-    imgBox.src = "";
-    videoBox.src = "";
-  }
-});
-      });
-      /* ---------- Page transition / title slide controller ---------- */
-(function () {
-  // Liste des sélecteurs à considérer comme "navigation interne"
-  const NAV_SELECTOR = 'a.nav-link, a.voir-plus-btn, a.btn-retour, a[href^="./"], a[href^="/"], a[href^="index.html"], a[href^="projet.html"]';
-
-  // Utility : add .slide-title to h1/h2 if not already set (auto-enhance)
-  function autoMarkTitles() {
-    document.querySelectorAll('h1, h2, .project-title').forEach((el, idx) => {
-      if (!el.classList.contains('slide-title')) {
-        el.classList.add('slide-title');
-        // add simple stagger classes for nicer effect
-        const s = (idx % 3) + 1;
-        el.classList.add(`stagger-${s}`);
-        // alternate direction for variety
-        if (el.tagName === 'H1') el.classList.add('slide-from-left');
-        else el.classList.add('slide-from-right');
       }
-    });
-  }
 
-  // Apply initial enter state on DOM ready
-  function applyEnter() {
-    document.documentElement.classList.remove('page-exit');
-    // add page-enter after a tiny delay to ensure CSS picks it up
-    setTimeout(() => document.documentElement.classList.add('page-enter'), 20);
-    // also remove any lingering site-fade class later
-    setTimeout(() => document.documentElement.classList.remove('site-fade'), 700);
-  }
+      // Infos du projet
+      const infos = [
+        ['Année', project.year],
+        ['Durée', project.duration],
+        ['Rôle', project.role]
+      ];
+      infos.forEach(([label, value]) => {
+        const li = document.createElement('li');
+        li.innerHTML = `<strong>${label} :</strong> ${value}`;
+        metaList.appendChild(li);
+      });
 
-  // Intercept internal navigation to play exit animation
-  function bindNavInterception() {
-    document.addEventListener('click', function (ev) {
-      const a = ev.target.closest('a');
-      if (!a) return;
-      // only intercept same-origin navigations with href and no target=_blank
-      const href = a.getAttribute('href');
-      const isNav = a.matches(NAV_SELECTOR) || (href && !href.startsWith('http') && !a.hasAttribute('target'));
-      if (!isNav) return;
+      // --- Galerie (images, vidéos, PDFs) ---
+      if (project.images) {
+        project.images.forEach(imgSrc => {
+          const ext = imgSrc.split('.').pop().toLowerCase();
+          if (ext === 'pdf') {
+            const pdfThumb = createPdfThumb(imgSrc);
+            galleryEl.appendChild(pdfThumb);
+          } else {
+            const img = document.createElement('img');
+            img.src = IMAGES_BASE + imgSrc;
+            img.alt = project.title;
+            img.className = 'gallery-item';
+            galleryEl.appendChild(img);
+          }
+        });
+      }
 
-      // If the link points to an anchor on the same page, don't intercept
-      if (href && href.startsWith('#')) return;
+      // champ "files" recommandé (et compatible si tu l'ajoutes)
+      if (project.files) {
+        project.files.forEach(file => {
+          const ext = file.split('.').pop().toLowerCase();
+          if (ext === 'pdf') {
+            const pdfThumb = createPdfThumb(file);
+            galleryEl.appendChild(pdfThumb);
+          } else {
+            const a = document.createElement('a');
+            a.href = FILES_BASE + file;
+            a.target = "_blank";
+            a.rel = "noopener noreferrer";
+            a.textContent = file;
+            a.className = 'file-link gallery-item';
+            galleryEl.appendChild(a);
+          }
+        });
+      }
 
-      // Prevent immediate navigation, play exit animation
-      ev.preventDefault();
+      if (project.video) {
+        const video = document.createElement('video');
+        video.controls = true;
+        video.className = 'gallery-item';
+        const source = document.createElement('source');
+        source.src = VIDEOS_BASE + project.video;
+        source.type = "video/mp4";
+        video.appendChild(source);
+        galleryEl.appendChild(video);
+      }
 
-      // mark exit
-      document.documentElement.classList.remove('page-enter');
-      document.documentElement.classList.add('page-exit', 'site-fade');
+      // --- Lightbox global (images / vidéos) ---
+      const lightbox = document.getElementById("lightbox");
+      const imgBox = document.getElementById("lightbox-img");
+      const videoBox = document.getElementById("lightbox-video");
 
-      // compute delay from CSS animation duration (match CSS ~420ms)
-      const NAV_DELAY = 420;
-
-      // After animation, go to target
-      setTimeout(() => {
-        // If href is empty or javascript:void(0) -> do nothing
-        if (!href || href === '#' || href.startsWith('javascript:')) {
-          document.documentElement.classList.remove('page-exit', 'site-fade');
+      // Clic sur galerie
+      galleryEl.addEventListener('click', function(e) {
+        // Si on clique sur une image
+        const img = e.target.closest('img.gallery-item');
+        if (img) {
+          const src = img.getAttribute('src');
+          if (!src) return;
+          imgBox.src = src;
+          imgBox.style.display = "block";
+          videoBox.style.display = "none";
+          // show lightbox
+          lightbox.style.display = "flex";
           return;
         }
-        // Navigate
-        window.location.href = href;
-      }, NAV_DELAY);
-    }, { passive: false });
-  }
 
-  // On DOM ready
-  document.addEventListener('DOMContentLoaded', function () {
-    autoMarkTitles();
-    applyEnter();
-    bindNavInterception();
-  });
+        // Si on clique sur une vidéo miniature (élément <video>)
+        const vid = e.target.closest('video.gallery-item');
+        if (vid) {
+          // si miniature <video> contient <source>, on récupère source src
+          const sourceEl = vid.querySelector('source');
+          const src = sourceEl ? sourceEl.src : vid.getAttribute('src');
+          if (!src) return;
+          videoBox.src = src;
+          videoBox.style.display = "block";
+          imgBox.style.display = "none";
+          videoBox.load();
+          // autoplay si tu veux : videoBox.play().catch(()=>{})
+          lightbox.style.display = "flex";
+          return;
+        }
 
-  // Fallback: if page was loaded via back/forward (bfcache), re-apply enter
-  window.addEventListener('pageshow', function (ev) {
-    if (ev.persisted) applyEnter();
-  });
-})();
+        // Si on clique sur une vignette PDF (div.pdf-embed)
+        const pdfWrap = e.target.closest('.pdf-embed');
+        if (pdfWrap) {
+          // si l'utilisateur clique sur le lien "Ouvrir" ou "Télécharger" : laisser le comportement par défaut
+          const clickedAnchor = e.target.closest('a');
+          if (clickedAnchor) {
+            // ouvrir ou télécharger suit le href / target défini
+            return;
+          }
+          // sinon : si clique en dehors des anchors, ouvrir le PDF dans un nouvel onglet
+          const filename = pdfWrap.getAttribute('data-file');
+          if (!filename) return;
+          const url = FILES_BASE + filename;
+          window.open(url, '_blank', 'noopener');
+        }
+      });
 
-  </script>
+      // Fermer lightbox
+      document.addEventListener('click', (e) => {
+        const target = e.target;
+        if (target.id === "lightbox" || target.classList.contains("lightbox-close")) {
+          lightbox.style.display = "none";
+          imgBox.src = "";
+          // vider et arrêter vidéo
+          videoBox.pause?.();
+          videoBox.removeAttribute('src');
+          while (videoBox.firstChild) videoBox.removeChild(videoBox.firstChild);
+        }
+      });
+
+    }) // end fetch.then
+    .catch(err => {
+      console.error('Erreur chargement projects.json', err);
+      document.body.innerHTML = '<h2>Erreur lors du chargement des données.</h2>';
+    });
+
+  /* ---------- Page transition / title slide controller ---------- */
+  (function () {
+    const NAV_SELECTOR = 'a.nav-link, a.voir-plus-btn, a.btn-retour, a[href^="./"], a[href^="/"], a[href^="index.html"], a[href^="projet.html"]';
+    function autoMarkTitles() {
+      document.querySelectorAll('h1, h2, .project-title').forEach((el, idx) => {
+        if (!el.classList.contains('slide-title')) {
+          el.classList.add('slide-title');
+          const s = (idx % 3) + 1;
+          el.classList.add(`stagger-${s}`);
+          if (el.tagName === 'H1') el.classList.add('slide-from-left');
+          else el.classList.add('slide-from-right');
+        }
+      });
+    }
+    function applyEnter() {
+      document.documentElement.classList.remove('page-exit');
+      setTimeout(() => document.documentElement.classList.add('page-enter'), 20);
+      setTimeout(() => document.documentElement.classList.remove('site-fade'), 700);
+    }
+    function bindNavInterception() {
+      document.addEventListener('click', function (ev) {
+        const a = ev.target.closest('a');
+        if (!a) return;
+        const href = a.getAttribute('href');
+        const isNav = a.matches(NAV_SELECTOR) || (href && !href.startsWith('http') && !a.hasAttribute('target'));
+        if (!isNav) return;
+        if (href && href.startsWith('#')) return;
+        ev.preventDefault();
+        document.documentElement.classList.remove('page-enter');
+        document.documentElement.classList.add('page-exit', 'site-fade');
+        const NAV_DELAY = 420;
+        setTimeout(() => {
+          if (!href || href === '#' || href.startsWith('javascript:')) {
+            document.documentElement.classList.remove('page-exit', 'site-fade');
+            return;
+          }
+          window.location.href = href;
+        }, NAV_DELAY);
+      }, { passive: false });
+    }
+    document.addEventListener('DOMContentLoaded', function () {
+      autoMarkTitles();
+      applyEnter();
+      bindNavInterception();
+    });
+    window.addEventListener('pageshow', function (ev) {
+      if (ev.persisted) applyEnter();
+    });
+  })();
+</script>
+
 </body>
 </html>

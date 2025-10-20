@@ -134,7 +134,7 @@ if (target) {
         });
         sidebar.classList.add("open");
       } else {
-        liste.innerHTML = `<li>Aucun projet pour ${skill}</li>`;
+        liste.innerHTML = `<li>Compétence dévellopper en cours, lors de travaux pratiques pour ${skill}</li>`;
         sidebar.classList.add("open");
       }
     }
