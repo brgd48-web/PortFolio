@@ -1,7 +1,7 @@
 import qrcode
 
 # Remplace par l’URL de ton site
-url = "https://brgd48-web.github.io/PortFolio/"
+url = "https://briac-regeard-portfolio.netlify.app/"
 
 # Génération du QR code
 img = qrcode.make(url)
