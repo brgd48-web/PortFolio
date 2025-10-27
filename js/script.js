@@ -41,64 +41,68 @@ if (target) {
     });
   }
 
-  // === MODALE PROJET (si utilisée) ===
-  document.querySelectorAll('.voir-plus-btn').forEach(btn => {
-    btn.addEventListener('click', function (e) {
-      // récupère l'attribut href directement (pas la propriété .href qui donne l'URL absolue)
-      const hrefAttr = btn.getAttribute('href');
-      // si le lien est destiné à une page projet complète, laisse le comportement par défaut
-      if (hrefAttr && hrefAttr.startsWith("projet.html")) return;
+ // === MODALE PROJET (si utilisée) ===
+document.querySelectorAll('.voir-plus-btn').forEach(btn => {
+  btn.addEventListener('click', function (e) {
+    e.preventDefault(); // Toujours prévenir le comportement par défaut
 
-      e.preventDefault();
+    const card = btn.closest(".projet-card");
+    if (!card) return;
 
-      const card = btn.closest(".projet-card");
-      if (!card) return;
+    const titleEl = card.querySelector("h3");
+    const descEl = card.querySelector("p");
+    const imgEl = card.querySelector("img");
 
-      const titleEl = card.querySelector("h3");
-      const descEl = card.querySelector("p");
-      const imgEl = card.querySelector("img");
+    const title = titleEl ? titleEl.textContent : "Projet";
+    const description = descEl ? descEl.textContent : "";
+    const imageSrc = imgEl ? imgEl.src : "";
 
-      const title = titleEl ? titleEl.textContent : "Projet";
-      const description = descEl ? descEl.textContent : "";
-      const imageSrc = imgEl ? imgEl.src : "";
-      const link = btn.href || hrefAttr || "#";
+    // récupère l'id depuis data-id si présent
+    const projectId = btn.dataset.id || (new URL(btn.href, window.location.href)).searchParams.get("id") || "";
 
-      const modal = document.getElementById("projectModal");
-      if (!modal) return;
+    // détermine la racine du site (utile si hébergé dans un sous-dossier)
+    const basePath = window.location.pathname.includes("/portfolio/") ? "/portfolio/" : "";
 
-      const modalTitle = modal.querySelector("#modalTitle");
-      const modalDescription = modal.querySelector("#modalDescription");
-      const modalImage = modal.querySelector("#modalImage");
-      const modalLink = modal.querySelector("#modalLink");
-      const projectCloseBtn = modal.querySelector(".close");
+    const link = `${basePath}projet.html?id=${encodeURIComponent(projectId)}`;
 
-      if (modalTitle) modalTitle.textContent = title;
-      if (modalDescription) modalDescription.textContent = description;
-      if (modalImage) {
-        modalImage.src = imageSrc;
-        modalImage.alt = title;
+    const modal = document.getElementById("projectModal");
+    if (!modal) {
+      // Si pas de modal, redirige directement vers la page projet
+      window.location.href = link;
+      return;
+    }
+
+    const modalTitle = modal.querySelector("#modalTitle");
+    const modalDescription = modal.querySelector("#modalDescription");
+    const modalImage = modal.querySelector("#modalImage");
+    const modalLink = modal.querySelector("#modalLink");
+    const projectCloseBtn = modal.querySelector(".close");
+
+    if (modalTitle) modalTitle.textContent = title;
+    if (modalDescription) modalDescription.textContent = description;
+    if (modalImage) {
+      modalImage.src = imageSrc;
+      modalImage.alt = title;
+    }
+    if (modalLink) modalLink.href = link;
+
+    modal.style.display = "block";
+
+    if (projectCloseBtn) {
+      projectCloseBtn.onclick = function () {
+        modal.style.display = "none";
+      };
+    }
+
+    window.addEventListener('click', function handler(event) {
+      if (event.target === modal) {
+        modal.style.display = "none";
+        window.removeEventListener('click', handler);
       }
-      if (modalLink) modalLink.href = link;
-
-      modal.style.display = "block";
-
-      if (projectCloseBtn) {
-        projectCloseBtn.onclick = function () {
-          modal.style.display = "none";
-        };
-      }
-
-      // fermeture par clic en dehors (n'écrase pas d'autres handlers)
-      window.addEventListener('click', function handler(event) {
-        if (event.target === modal) {
-          modal.style.display = "none";
-          // retirer ce handler facultatif si on veut éviter accumulation : on peut le laisser, 
-          // mais pour ne pas accumuler handlers, on le supprime après la première exécution
-          window.removeEventListener('click', handler);
-        }
-      });
     });
   });
+});
+
 
   // === SIDEBAR COMPÉTENCES ===
   fetch('projects.json')
