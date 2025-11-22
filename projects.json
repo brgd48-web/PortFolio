@@ -4,8 +4,7 @@
     "title": "Scanner Code-Barres",
     "description": "Application mobile permettant de scanner des codes-barres, ce projet fait suite à une demande d’un collège d’avoir une application simple qui permet de scanner des QR codes. On peut par la suite générer un CSV avec l'heure, la date et le numéro du QR code. Le collège avait besoin de cette application pour scanner des QR codes pour un cross. Avec le CSV, on peut facilement avoir un classement et savoir si tout le monde a bien passé la ligne d’arrivée",
     "languages": ["HTML", "CSS", "JavaScript"],
-    "images": ["ScannerCode_Barre.jpg", "ScannerCode_Barre_2.jpg"],
-    "video": "ScannerCode_Barre_Demo.mp4",
+    "images": ["ScannerCode_Barre.jpg"],
     "year": 2025,
     "tags": ["mobile", "scanner", "webapp", "frontend"],
     "duration": "2 mois",
@@ -59,5 +58,18 @@
     "tags": ["SQL", "PostgreSQL", "BDD", "analyse", "foot"],
     "duration": "1 mois",
     "role": "Conception de la base, création des tables et requêtes d'analyse"
+  },
+    {
+    "id": "figma",
+    "title": "Utlisation de  Figma pour du maquettage",
+    "description": "J’utilise Figma depuis un peu plus de deux ans, notamment pour réaliser des maquettes et visualiser l’interface de mes projets. J’ai également mené une recherche documentaire durant ma première année de L1. Je vous transmets ci-joint la présentation.",
+    "languages": ["Figma"],
+    "images": [],
+    "files": [],
+    "video": "Figma_pour_tous.mp4",
+    "year": 2023,
+    "tags": ["Maquettage", "UX", "UI", "figma"],
+    "duration": "2 ans",
+    "role": "Utilisateur"
   }
 ]
